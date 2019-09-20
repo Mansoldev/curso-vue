@@ -1,0 +1,10 @@
+Vue.filter('euros', str => str + ' €')
+Vue.filter('decimal', str => {
+  if (str == '') str = 0
+  return parseFloat(Math.round(str * 100) / 100).toFixed(2)
+})
+Vue.filter('bool', function (value) {
+  if (value === '' || value === null || value === false) return 'No'
+  if (value === true) return 'Sí'
+  return value
+})

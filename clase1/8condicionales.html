@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    #menu-importante > li {
+      list-style-type: lower-alpha;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h3>A ESTUDIAR</h3>
+  <ul id="menu-importante">
+    <div v-show="estudiaInformatica">
+      <li>Java</li>
+      <li>C#</li>
+      <li>Python</li>
+    </div>
+    <li>Diseño</li>
+    <li>SEO</li>
+    <li>Marqueting</li>
+  </ul>
+
+  <table border="1">
+    <tr>
+      <th>Diseño</th>
+      <div v-show="estudiaInformatica">
+        <th>Informática</th>
+      </div>
+    </tr>
+    <tr>
+      <td>SEO</td>
+    <div v-show="estudiaInformatica">
+      <td>Backend</td>
+    </div>
+    </tr>
+    <tr>
+      <td>Marqueting</td>
+    <div v-show="estudiaInformatica">
+      <td>Frontend</td>
+    </div>
+    </tr>
+  </table>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+          estudiaInformatica: true
+        }
+    })
+</script>
+</body>
+</html>
