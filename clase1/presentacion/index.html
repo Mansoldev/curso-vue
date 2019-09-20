@@ -1,0 +1,525 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<style>
+			p,pre,code,.reveal table th {
+				font-size: 22px;
+			}
+			.reveal ul,ol {
+				margin-bottom: 15px;
+				display: block;
+			}
+			ul,ol > li {
+				font-size: 20px;
+			}
+			a,h6 {
+				font-size: 25px;
+			}
+			span.important {
+				font-size: 25px;
+				font-weight: bolder;
+				color: red;
+			}
+
+			.text-left {
+				text-align: left;
+			}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h1>CLASE 1 - INSTANCIA DE VUE</h1>
+					</section>
+
+					<section>
+						<h6 class="text-left">En la clase de hoy veremos como funciona vue de forma básica y como utilizarlo en un proyecto importandolo como una libreria como se trabajaba hace unos años.</h6>
+
+						<h4>¿Qué es Vue?</h4>
+						<p class="text-left">Vue es un framework/libreria de javascript de tercera generación que permite, como sus hermano Angular y React, trabajar el FRONT horientado a componentes, 
+							llamando al Backend solo cuando sea necesario.</p>
+						<p>A destacar:</p>
+						<ul>
+							<li>Es un framework posterior a Angular y React, que se pensó para que tuviese lo mejor de ambos, más facil de aprender y optimizado, sulo pesa 20KB.</li>
+							<li>Es reactivo, todo se actualiza sin necesidad de crear listeners.</li>
+							<li>Es progresivo, el core es ligero, pero para aplicaciones medianas y grandes, trae un ecosistema de librerias que ayudan al cambio.</li>
+							<li>Vue no te obliga a adoptar otras técnologías, te lo deja a tu elección (JSX react, Typescript)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>0 - ¿CÓMO SE UTILIZA?</h3>
+
+						<br>
+						<p class="text-left">Existen dos formas de utilizar VUE:</p>
+						<ol>
+							<li>Importandolo como una libreria, recomendado para aprender a utilizarlo y una manera de utilizarlo en proyectos antiguos sin tener que rehacer todo el código.</li>
+							<li>Como un proyecto NODE, que nos brinda toda la potencia del backend y nos ayuda a desarrollar mejor con cosas como la recarga en caliente de la página al guardar y los archivos .vue</li>
+						</ol>
+					</section>
+				</section>
+				
+				<!-- 1 -->
+				<section>
+					<section>
+						<h3>1 - IMPORTANDO VUE COMO LIBRERIA</h3>
+						<p class="text-left">Para poder utilizarlo solo necesitamos importarlo en un proyecto añadiendo el siguiente script:</p>
+						<pre><code class="hljs" data-line-numbers="1">&lt;script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"&gt;&lt;/script&gt;</code></pre>
+
+						<p class="text-left">Y con estas sencillas lineas de código, Vue está funcionando.</p>
+						<pre><code class="hljs" data-line-numbers="1,4,5,6,7,8,9">&lt;div id="app"&gt;{{ message }}&lt;/div&gt;
+
+&lt;script&gt;
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello Vue!'
+		}
+	})
+&lt;/script&gt;
+						</code></pre>
+
+						<p class="text-left">Tambien es recomendable instalar las <span class="important">Vue Dev Tools</span>, una extensión de navegador para la depuración de VUE</li></p>
+					</section>
+						
+					<section>
+						<h4>1.1 ¿Como funciona?</h4>
+
+						<pre><code class="hljs" data-line-numbers="1">el: '#app',</code></pre>
+						<p class="text-left">En está linea le decimos a VUE que tiene que vincularse con el elemento con el id 'app' y con esto, 
+							Vue es capaz de controlar cualquier cosa que descienda de esa etiqueta sin necesidad de referenciarla</p>
+
+						<pre><code class="hljs" data-line-numbers="1,3,4,5">&lt;div id="app"&gt;{{ message }}&lt;/div&gt;
+
+data: {
+	message: 'Hello Vue!'
+}
+						</code></pre>
+						<p class="text-left">Aquí vemos el elemento que está unido a Vue y que el mensaje que tenemos en la parte de datos de Vue automáticamente se muestra dentro del 'div' de la vista 
+							solo con poner un par de corchetes, esto se llama <span class="important">interpolación</span>.</p>
+						<p>La sintaxis de corchetes se llama moustache y es un estandar hoy en día en
+							día en la mayoria de gestores de plantillas de los principales lenguajes.</p>
+					</section>
+
+					<section>
+						<h4>1.2 Reactividad</h4>
+
+						<p class="text-left">Vue, al igual que angular, es reactivo, es decir, cada vez que cambie un dato por cualquier fuente, el dato cambiará en todos los lugares en los que esté vinculado.</p>
+
+						<p class="text-left">UN EJEMPLO.</p>
+
+						<p class="text-left">Despues de la introducción... Ahora veremos los siguientes conceptos:</p>
+						<ul>
+							<li>DATA BINDIGN Y TWO WAY DATA BINDING</li>
+							<li>INTERPOLACIÓN Y DIRECTIVAS</li>
+							<li>FILTROS</li>
+							<li>METODOS Y EVENTOS</li>
+							<li>DIRECTIVAS DE CONTROL DE FLUJO</li>
+							<li>COMPUTED PROPERTIES Y WATCHERS</li>
+							<li>LIFECYCLE HOOKS</li>
+							<li>REACTIVIDAD EN PROFUNDIDAD</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- 2 -->
+				<section>
+					<section>
+						<h3>2 - DATA BINDIGN Y TWO WAY DATA BINDING</h3>
+
+						<p class="text-left">Ya sabemos pasar datos del modelo a la vista, lo contrario se hace con la directiva <span class="important">v-model</span></p>
+						<pre><code class="hljs" data-line-numbers="2">&lt;div id="app"&gt;
+	&lt;input v-model="message"&gt;
+&lt;/div&gt;</code></pre>
+					</section>
+						
+					<section>
+						<h4>2.1 BINDEO EN DOS DIRECCIONES:</h4>
+
+						<pre><code class="hljs" data-line-numbers="2,3">&lt;div id="app"&gt;
+	&lt;p&gt;{{ message }}&lt;/p&gt;
+	&lt;input v-model="message"&gt;
+&lt;/div&gt;</code></pre>
+
+						<p class="text-left">Con v-model recogemos el valor de cualquier input y lo guardamos en la variable o propiedad de objeto pasado.</p>
+					</section>
+				</section>
+
+				<!-- 3 -->
+				<section>
+					<section>
+						<h3>3 - INTERPOLACIÓN Y DIRECTIVAS</h3>
+
+						<p class="text-left">Como ya hemos visto, usamos los corchetes para mostrar el contenido de variables en la vista, pero no estamos limitados a variables, vue interpreta cualquier expresión de javascript válida:</p>
+						<pre><code class="hljs" data-line-numbers="2">&lt;div id="app"&gt;
+{{ 'Fecha Actual: ' + new Date().toLocaleString() + ' - 1 + 1 = ' + 1 + 1 }}
+&lt;/div&gt;</code></pre>
+
+						<p class="text-left">Tenemos más formas de bindear variables y texto en la vista.</p>
+					</section>
+						
+					<section>
+						<h4>3.1 Directivas de texto:</h4>
+
+						<p class="text-left">Las directivas son nuevas propiedades añadidas en el propio html que vue interpreta, esta faceta del framework proviene de angular.</p>
+
+						<p class="text-left">&lt;span <span class="important">v-once</span>&gt;{{ propiedad }}&lt;/span&gt; : Solo se interpreta una vez el contenido, después no se actualiza.</p>
+						<p class="text-left">&lt;span <span class="important">v-text="propiedad"</span>&gt;&lt;/span&gt; : Identico a como funcionan los corchetes, pero en forma de directiva.</p>
+						<p class="text-left">&lt;span <span class="important">v-html="propiedad"</span>&gt;&lt;/span&gt; : Es capaz de interpretar html</p>
+					</section>
+
+					<section>
+						<h4>3.2 Bindeo de Atributos html:</h4>
+						
+						<p class="text-left">Para bindear el valor de atributos html desde una variable se usa <span class="important">v-bind:propiedadHtml</span> o su alias <span class="important">:propiedadHtml</span>, esto hace a la propiedad dependiente de la variable.</p>
+
+						<pre><code class="hljs" data-line-numbers="1,2">&lt;div :class="{active: prop}"&gt;
+&lt;div :style="{color: prop}"&gt;</code></pre>
+
+						<p class="text-left">Podemos bindear cualquier otra propiedad como disabled, href, id</p>
+						FALTA EJEMPLO
+					</section>
+				</section>
+
+				<!-- 4 -->
+				<section>
+					<section>
+						<h3>4 - FILTROS</h3>
+
+						<p class="text-left">Los filtros son decoraciones que haces en última instancia de los datos, desde añadir un simbolo de euro a formatear una fecha para un campo y son muy sencillos de crear y usar:</p>
+						<pre><code class="hljs" data-line-numbers="2,6,7,8,9,10">&lt;div id="app"&gt;
+	&lt;p&gt;{{ message | reverse }}&lt;/p&gt;
+&lt;/div&gt;
+
+var app = new Vue({
+	filters: {
+		reverse (string) {
+			return string.split('').reverse().join('')
+		}
+	},
+	...</code></pre>
+					</section>
+				</section>
+
+				<!-- 5 -->
+				<section>
+					<section>
+						<h3>5 - MÉTODOS Y EVENTOS</h3>
+
+						<h4>5.1 Métodos:</h4>
+						<p class="text-left">Los métodos son tal cual suenan, funciones separadas de funcionalidad y sirven tanto para reducir y encapsular el código como para tratar eventos.</p>
+						<pre><code class="hljs" data-line-numbers="2,3,4,5,6">var app = new Vue({
+	methods: {
+		reverse () {
+			return string.split('').reverse().join('')
+		}
+	},
+	...</code></pre>
+					</section>
+
+					<section>
+						<h4>5.1 Eventos:</h4>
+
+						<p class="text-left">Para manejar eventos se utiliza la sentencia <span class="important">v-on</span> o su alias <span class="important">@</span> seguido un evento de js, como click, submit, change, etc...</p>
+						<pre><code class="hljs" data-line-numbers="1,4,5">&lt;button @click="sumar($event)"&gt;sumar&lt;/button&gt;
+							
+	methods: {
+		sumar (evento) {
+			....
+		}
+	}</code></pre>
+
+					Se recibe un evento por defecto
+					</section>
+
+					<section>
+						<h4>5.2 Modificadores:</h4>
+
+						<p class="text-left">Los modificadores se añaden a continuación de los eventos para realizar una acción adicional o concretar el evento, como evitar un submit o controlar que el usuario escriba una tecla concreta.</p>
+						<pre><code class="hljs" data-line-numbers="1,2">&lt;form @submit.prevent="miSubmit()"&gt;Enviar&lt;/button&gt;
+&lt;input @keyup.enter="funcion"/&gt;</code></pre>
+
+						<p class="text-left">Los eventos los podeis encontrar en el siguiente enlace: <a href="https://developer.mozilla.org/es/docs/Web/Events">EVENTOS</a></p>
+						<p>En está tabla teneís los modificadores:</p>
+						<table>
+							<tr>
+								<th>BÁSICOS</th>
+								<th>TECLAS</th>
+								<th>MODIFICADORES DE TECLAS</th>
+								<th>RATÓN</th>
+							</tr>
+							<tr>
+								<td>
+									<ul>
+										<li>.stop</li>
+										<li>.prevent</li>
+										<li>.capture</li>
+										<li>.self</li>
+										<li>.once</li>
+										<li>.passive</li>
+									</ul>
+								</td>
+								<td>
+									<ul>
+										<li>.enter</li>
+										<li>.tab</li>
+										<li>.delete (coge del y retroceso)</li>
+										<li>.esc</li>
+										<li>.space</li>
+										<li>.up</li>
+										<li>.down</li>
+										<li>.left</li>
+										<li>.right</li>
+									</ul>
+								</td>
+								<td>
+									<ul>
+										<li>.ctrl</li>
+										<li>.alt</li>
+										<li>.shift</li>
+										<li>.meta</li>
+										<li>.exact</li>
+									</ul>
+								</td>
+								<td>
+									<ul>
+										<li>.left</li>
+										<li>.right</li>
+										<li>.middle</li>
+									</ul>										
+								</td>
+							</tr>
+						</table>
+					</section>
+				</section>
+
+				<!-- 6 -->
+				<section>
+					<section>
+						<h3>6 - DIRECTIVAS DE CONTROL DE FLUJO</h3>
+
+						<h4>6.1 Condicionales:</h4>
+						<pre><code class="hljs" data-line-numbers="1,2,3,4,7,8">&lt;div v-if="type == 'A'"&gt;A&lt;/div&gt;
+&lt;div v-else-if="type == 'B'"&gt;B&lt;/div&gt;
+&lt;div v-else-if="type === 'C'"&gt;C&lt;/div&gt;
+&lt;div v-else&gt; NO A/B/C&lt;/div&gt;
+
+...
+	data: {
+		type: 'C'
+	}</code></pre>
+
+					FALTA v-show
+					</section>
+
+					<section>
+						<h4>6.2 Etiqueta template</h4>
+
+						FALTA
+					</section>
+
+					<section>
+						<h4>6.3 Ciclos:</h4>
+
+						<pre><code class="hljs" data-line-numbers="1,2,7,8,9,10,11">&lt;ul id="example-1"&gt;
+	&lt;li v-for="item in items"&gt;{{ item.message }}&lt;/li&gt;
+&lt;/ul&gt;
+				
+var example1 = new Vue({
+	el: '#example-1',
+	data: {
+		items: [
+			{ message: 'Foo' },
+			{ message: 'Bar' }
+		]
+	}
+})</code></pre>
+					</section>
+				</section>
+
+				<!-- 7 -->
+				<section>
+					<section>
+						<h3>7 - COMPUTED PROPERTIES Y WATCHERS</h3>
+
+						<p class="text-left">Al principio suenan parecidas, pero nos sirven para cosas distintas</p>
+						<ul>
+							<li>Computed properties: son variables nuevas que se generan a partir de otras. Podrías decir que son como filtros que se ejecutan al inicio.</li>
+							<li>Watchers: manejadores de eventos sobre variables de vue, es decir, ejecutan codigo cuando algo concreto cambia.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>7.1 Computed properties:</h4>
+
+						<p class="text-left">Son como las variables de data, pero mucho más utiles, te permiten añadir nueva información encapsulada, accesible y reactiva.</p>
+						<pre><code class="hljs" data-line-numbers="3,4,6,7,8,9,10,11">var example1 = new Vue({
+	data: {
+		nombre: 'Mario'
+		edad: 22
+	},
+	computed: {
+		mayorDeEdad () {
+			return this.edad >= 18
+		},
+		contadorDeLetras () {
+			return this.nombre.length
+		}
+	}
+})</code></pre>
+
+						<p class="text-left">Ahora podrías usar 'mayorDeEdad' y 'contadorDeLetras' como una condicion por ejemplo, a parte, cada vez que cambien los datos de los que dependen, se actualizarán automáticamente.</p>
+
+						FALTAN LOS SETTERS DE LAS COMPUTED
+					</section>
+
+					<section>
+						<h4>7.2 Watchers:</h4>
+
+						<p class="text-left">Los watchers reciben dos parametros opcionales que son el valor antiguo de lo que cambia y el nuevo valor.</p>
+						<pre><code class="hljs" data-line-numbers="1,5,7,8,9,10">&lt;input v-model="nombre"&gt;
+
+var example1 = new Vue({
+	data: {
+		nombre: ''
+	},
+	watchers: {
+		nombre (old, new) {
+			'El antiguo valor era' + old + ' el nuevo es ' + new
+			if (nombre != '') this.habilitarSubmit() 
+		}
+	}
+})</code></pre>
+					</section>
+
+					<section>
+						<h4>7.3 Watchers deep:</h4>
+
+						<p class="text-left">Con esta propiedad puedes hacer que vue esté atento a los cambios de las propiedades de un objeto.</p>
+						<pre><code class="hljs" data-line-numbers="2,3,4,8,9,10,11,12,13">data: {
+	persona: {
+		id: 1,
+		edad: 12
+	}
+},
+watch: {
+	persona: {
+		handler (newValue) {
+			console.log("La persona con el ID:" + newValue.id + " ha sido modificada")
+			console.log("Nueva edad: " + newValue.edad)
+		},
+		deep: true
+	}
+}</code></pre>
+					</section>
+				</section>
+
+				<!-- 8.0 -->
+				<section>
+					<section>
+						UNA PAUSITA
+					</section>
+				</section>
+
+				<!-- 8 -->
+				<section>
+					<section>
+						<h3>8 - CICLO DE VIDA</h3>
+
+						<p class="text-left">Vue cuenta con una serie de eventos que se ejecutan en momentos concretos, por ejemplo:</p>
+						<pre><code class="hljs" data-line-numbers="1,2">created: function () {
+	console.log('El componente se crea')
+}</code></pre>
+
+						<p class="text-left">created se ejecuta antes de que se monten todos los tags html y por tanto es un buen sitio para hacer llamadas para traer los datos o formatear los datos que nos pasa otro componente.</p>
+					</section>
+
+					<section>
+						<h4>8.1 Diagrama de la vida de un componente:</h4>
+
+						<img src="life.jpg" width="800">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>9 - REACTIVIDAD EN PROFUNDIDAD</h3>
+
+
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>10 - RESUMEN</h3>
+						Crear globalmente o casualmente (componentes)
+
+						directivas, mostrar resumen > https://marozed.ma/vue-cheatsheet/ y http://codepop.com/Vue-Essentials-Cheat-Sheet.pdf
+
+						{
+							name: 'RangeSlider',
+							data() {}, // variables
+							computed: {},
+							watch: {}, // watch wariables
+							methods: {}, // methods
+
+							// component Lifecycle hooks
+							beforeCreate() {},
+							created() {},
+							beforeMount() {},
+							mounted() {},
+							beforeUpdate() {},
+							updated() {},
+							activated() {},
+							deactivated() {},
+							beforeDestroy() {},
+							destroyed() {},
+
+							errorCaptured() {}
+						};
+
+						+ info: https://es.vuejs.org/v2/guide/ y https://es.vuejs.org/v2/api/
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

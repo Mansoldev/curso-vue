@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<style>
+			p {
+				font-size: 22px;
+			}
+			.reveal ul,ol {
+				margin-bottom: 15px;
+				display: block;
+			}
+			ul,ol > li {
+				font-size: 20px;
+			}
+			a,h6 {
+				font-size: 25px;
+			}
+			span.important {
+				font-size: 25px;
+				font-weight: bolder;
+				color: red;
+			}
+
+			.text-left {
+				text-align: left;
+			}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h1>CLASE 3 - NODEJS</h1>
+					</section>
+
+					<section>
+						<p class="text-left">En la clase de hoy veremos como crear un proyecto de Front de VUE, para ello necesitamos varios elementos a parte de Vue y las vue dev tools:</p>
+						<ol>
+							<li>Un editor de texto como Visual Studio Code (Serviría hasta el notepad de windows o el vi de linux).</li>
+							<li><b>NodeJS</b> y su gestor de paquetes <b>NPM</b>.</li>
+						</ol>
+	
+						<p class="text-left">Es opcional pero recomendable usar tambien:</p>
+						<ol>
+							<li><b>Git</b>: El software de gestión de versiones más usado actualmente y desde hace años.</li>
+							<li><b>Vue-cli</b>: una libreria del entorno de vue que te proporciona una interfaz de comandos y gráfica (vue ui) para manejar tus proyectos</li>
+						</ol>
+					</section>
+				</section>
+
+				<section>
+					<h3>0 - Instalación de NODEJS Y NPM</h3>
+					<p class="text-left">Para instalar ambos, tenemos que bajarnos el instalador de la página oficial e instalarlo como cualquier ejecutable de windows:</p>
+					<a href="https://nodejs.org/es/">https://nodejs.org/es/</a>
+					<p>Una vez instalado, podemos comprobar que funciona correctamente ejecutando el comando:</p>
+					<pre><code class="hljs" data-line-numbers="1">node -v</code></pre>
+					<pre><code class="hljs" data-line-numbers="1">npm -v</code></pre>
+				</section>
+
+				<section>
+					<section>
+						<h3>1 - Entorno NODE</h3>
+						<p class="text-left">Node es un entorno de ejecución de Javascript para ejecutar javascript del lado del servidor.</p>
+						<p class="text-left">A parte de hacer un frontend moderno, podriamos crear aplicaciones node multiproposito, es decir, de backend, escritorio, internet de las cosas, IAs, etc...</p>
+
+						<p class="text-left">Para ello cuenta con una serie de librerias que nos permiten manejar los objetos necesarios para crear cualquier programa, como el resto de lenguajes multiplataforma.</p>
+						<a href="https://nodejs.org/dist/latest-v10.x/docs/api/">Documentación de las librerias de NodeJS</a>
+					</section>
+
+					<section>
+						<h4>1.1 - Ejecución de NodeJS</h4>
+						<p class="text-left">Para ejecutar un entorno de Javascript interactivo solo debemos usar el comando:</p>
+						<pre><code class="hljs" data-line-numbers="1">node</code></pre>
+						<p class="text-left">Para salir, pulsamos ctrl + C dos veces.</p>
+
+						<br>
+						<p class="text-left">Para ejecutar un archivo:</p>
+						<pre><code class="hljs" data-line-numbers="1">node archivo.js</code></pre>
+
+						<p class="text-left">Como ejemplo os traigo como crear un par de servidores en javascript: <span class="important">server.js y server2.js</span></p>
+
+						<br>
+						<p class="text-left">Por último, para actualizarlo se recomienda en windows desinstalarlo e instalarlo de nuevo, pero existen otras alternativas, paquetes npm como n, npx o nvm que te permiten tener distintas versiones de node.</p>
+					</section>
+
+					<section>
+						<h4>1.2 - NPM, package.json y package-lock.json</h4>
+						<p class="text-left"><span class="important">NPM</span> es el gestor de paquetes de node, para actualizarlo es muy sencillo, Dado que el propio npm es un paquete de npm</p>
+						<pre><code class="hljs" data-line-numbers="1">npm update -g npm</code></pre>
+
+						<br>
+						<p class="text-left">El fichero <span class="important">package.json</span> almacena los datos y configuración más importantes de la App que estamos desarrollando, el nombre, versión, dependencias, etc.
+						Se crea con el comando:</p>
+						<pre><code class="hljs" data-line-numbers="1">npm init</code></pre>
+						<p class="text-left">Nos permite ejecutar cualquier tipo de jecución por consola:</p>
+						<pre><code class="hljs" data-line-numbers="1">npm start</code></pre>
+						
+						<br>
+						<p class="text-left">El fichero <span class="important">package-lock.json</span> contiene toda la jerarquía del arbol de dependencias, para evitar discrepancias entre las versiones de los paquetes</p>
+					</section>
+
+					<section>
+						<h4>1.3 - paquetes NPM</h4>
+						<p class="text-left">Antes de empezar con los comandos que tiene npm, me gustaría aclarar cómo funcionan el número de versión que tienen los paquetes.</p>
+						<p class="text-left">Los paquetes de NPM suelen seguir un versionado semántico, es decir: MAJOR.MINOR.PATCH.</p>
+						<p>Dada una versión 5.4.3</p>
+						<ul>
+							<li>El primer número (5) indica una versión grande del paquete, cuando este número cambia se supone que ha habido un cambio grande en el paquete que rompe lo que había con la versión anterior.</li>
+							<li>El segundo número (4) indica una versión menor, en esta versión se resuelven errores anteriores y se añaden cosas pero sin romper la versión anterior, es decir, esta versión será compatible con una versión anterior y por lo tanto se puede actualizar con seguridad.</li>
+							<li>El último número (2) indica arreglo de errores y pequeños fallos pero sin añadir funcionalidad, por lo tanto también es compatible con versiones anteriores.</li>
+						</ul>
+
+						<p class="text-left">Como he explicado antes, npm al usar versionado semántico, puedes indicar que tipo de actualización quieres en cada paquete</p>
+						<ul>
+							<li>~1.0.4, solo va a actualizar el último número, es decir, va a subir solo de versión patch</li>
+							<li>^1.0.4, solo va a actualizar los dos últimos números, es decir, va a subir solo de versión minor, comportamiento por defecto de NPM</li>
+							<li>*1.0.4, va actualizar también de versión mayor.</li>
+							<li>@latest se descarga la ultima versión publicada.</li>
+						</ul>
+					</section>
+
+					<section>
+						<p class="text-left">Como se gestionan los paquetes con npm:</p>
+						<ol>
+							<li><span class="important">Globalmente (nodemon)</span>: se instalan de forma global, añadiendose al PATH en "%AppData%/npm/" y se pueden usar directamente en la linea de comandos</li>
+							<li><span class="important">Localmente (cowsay)</span>: se instalan para un proyecto, se linkean en la carpeta "node_modules/.bin/" del proyecto, no se añaden en el PATH y hay que ejecutarlos como script de npm (package.json) o desde la carpeta instalada.</li>
+							<li><span class="important">Npx (cowsay)</span>: lo baja, lo ejecuta y lo borra y permite ejecutar, por ejemplo paquetes de github y otros.</li>
+						</ol>
+					</section>
+
+					<section>
+						<h4>1.4 - comandos NPM</h4>
+
+						<h6>Comandos iniciales:</h6>
+						<ul>
+							<li><span class="important">npm init [-y]</span>: Inicia un proyecto npm</li>
+							<li><span class="important">npm run &lt;nombre_comando&gt;</span>: Mira comandos que tienes en el package.json y los ejecuta si los encuentra.</li>
+						</ul>
+						<h6>Comandos de busqueda:</h6>
+						<ul>
+							<li><span class="important">npm search [string]</span>: Busca packetes del repositorio que coincidan con la cadena descrita.</li>
+							<li><span class="important">npm docs &lt;nombre-paquete&gt;</span>: Muestra el README.md/documentation/página npmjs.org page del paquete especificado.</li>
+							<li><span class="important">npm info &lt;nombre-paquete&gt;</span>: Muestra información del paquete por consola.</li>
+						</ul>
+						<h6>Comandos de listado:</h6>
+						<ul>
+							<li><span class="important">npm list|npm ls</span>: Sirva para pintar en pantalla el nombre de todos los paquetes instalados en el proyecto en el que estemos situados, nos da el nombre del paquete, su versión y las dependencias que haya encontrado.</li>
+							<li><span class="important">npm list --depth &lt;numero&gt;</span>: Indicamos que queremos una profundidad de 0, solo va a mostrar los paquetes que hay en el package.json. Una profundidad de 1 mostrará esos paquetes más sus dependencias directas, y así sucesivamente.</li>
+							<li><span class="important">npm list -g</span>: Lista los paquetes instalados globalmente.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h6>Comandos de instalación:</h6>
+						<ul>
+							<li><span class="important">npm uninstall [-g] &lt;nombre-paquete&gt;|npm un</span>: Lo contrario a instalar un paquete, lo elimina de la carpeta node_modules y de las dependencias del package.json</li>
+						</ul>
+
+						<ul>
+							<li><span class="important">npm install|npm i</span>: Instala las dependencias del package.json o instala un nuevo paquete para el proyecto.</li>
+						</ul>
+						<p class="text-left">Lee el archivo del package.json para instalar todas las dependencias que encuentre. Si el paquete ya estaba instalado va a intentar actualizarlo.</p>
+						<p class="text-left">Lo primero que se hace cuando te bajas un repositorio de git con paquetes npm es ejecutar este comando para que descargue todas las librerías, de lo contrario no funcionará.</p>
+						
+						<p>MODIFICADORES:</p>
+						<ul>
+							<li><span class="important">npm install &lt;nombre-paquete@version-name&gt;</span>: Descarga el paquete y lo mete en la carpeta node modules. Para buscar el nombre del paquete repositorio de npmjs: https://www.npmjs.com/</li>
+							<li><span class="important">npm install --global &lt;nombre-paquete&gt;| npm i -g <nombre-paquete></span>: Instalar un paquete globalmente.</li>
+							<li><span class="important">npm install &lt;nombre-paquete&gt; --save-exact</span>: Al guardarse en el package.json se guarda con la versión exacta en ese momento, es decir, nunca se va actualizar. Esto permite mantener siempre la misma versión para que todo funcione igual.</li>
+							<li><span class="important">git://github.com/usuario/repositorio.git#v0.1.0</span>: También puedes instalar paquetes directamente desde el repositorio de github. Además al final puedes indicar la versión que quieres descargar (tirará de los tags del repositorio) y también puedes tirar de ramas para no tener problemas de versiones.</li>
+							<li><span class="important">--save-dev|-D</span>: Instala el paquete como dependencia de desarrollo, no se transpila para producción.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h6>Comandos de actualizacion:</h6>
+						<ul>
+							<li><span class="important">npm outdated</span>: Como su nombre indica, imprime una lista con los paquetes desactualizados.</li>
+							<li><span class="important">npm update|npm up</span>: Actualiza todos los paquetes del package.json en caso de que hayan sido actualizados.</li>
+							<li><span class="important">npm update &lt;nombre-paquete&gt;</span>: Actualiza el paquete en particular.</li>
+						</ul>
+
+						<br>
+						<p class="text-left">Como recomendación te aconsejo que instales este paquete para tener un listado de posibles actualizaciones de los paquetes:</p>
+						<p class="text-left">npm i -g npm-check-updates > permite ejecutar ncu</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						La buena noticia es que no vais a necesitar usar los comandos de NPM.
+					</section>
+					<section>
+						GIF RESPIRAR
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>2 - GIT</h3>
+
+						<p class="text-left">Para instalarlo, tenemos que bajarnos el instalador de la página oficial e instalarlo como cualquier ejecutable de windows:</p>
+						<a href="https://git-scm.com/">https://git-scm.com/</a>
+						<p class="text-left">Una vez instalado, podemos comprobar que funciona correctamente ejecutando el comando:</p>
+						<pre><code class="hljs" data-line-numbers="1">git --version</code></pre>
+
+						<p class="text-left">Antes de probarlo, lo primero que hay que hacer es configurarlo:</p>
+						<pre><code class="hljs" data-line-numbers="1">git config --global user.email "you@example.com"</code></pre>
+						<pre><code class="hljs" data-line-numbers="1">git config --global user.name "Nombre"</code></pre>
+					</section>
+
+					<section>
+						<h4>2.1 - RESUMEN ÉPICO DE USO</h4>
+
+						<p>REPOSITORIO REMOTO</p>
+						<ul>
+							<li>
+								<span class="important">git clone [url] [newName]</span>: Clona el repo de la url donde estes con el nombre newName.
+							</li>
+							<li>Git te permite usar distintos protocolos de transferencia: git://, o http(s):// o usuario@servidor:/ruta.git</li>
+						</ul>
+						
+						<p>SUBIR CAMBIOS</p>
+						<ul>
+							<li><span class="important">git pull</span> : Obtiene los cambios del servidor</li>
+							<li><span class="important">git commit -am "mensaje"</span> : Git prepara los archivos y guarda los cambios EN LOCAL</li>
+							<li><span class="important">git push origin master</span> : Git sube tus cambios comiteados a gitlab</li>
+						</ul>
+
+						<a href="https://jrebel.com/rebellabs/git-commands-and-best-practices-cheat-sheet/">Chuleta de comandos</a>
+					</section>
+					<section>
+
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>3 - VUE CLI (Command Line Interface)</h3>
+						<p class="text-left">Es una interfaz para crear proyectos de Vue, tanto por consola como de forma gráfica.</p>
+
+						<p class="text-left">Lo instalaremos de forma global, para ello solo hay que ejecutar el siguiente comando:</p>
+						<pre><code class="hljs" data-line-numbers="1">npm install -g @vue/cli</code></pre>
+
+						<a href="https://cli.vuejs.org/guide/">Documentación del CLI</a>
+					</section>
+					<section>
+						<h4>3.0 - Ecosistema de VUE</h4>
+
+						<p>A parte del CLI, VUE cuenta con una serie de librerias necesarias para proyectos medianos y grandes:</p>
+						<ul>
+							<li><span class="important">Vuetify</span>: Es un framework CSS que nos brinda una gran lista de componentes estéticos y visuales.</li>
+							<li><span class="important">Vue-router</span>: Es una libreria que actua de enrutador de la aplicación desde el cliente, creando diferentes "páginas en el cliente"</li>
+							<li><span class="important">VUEX</span>: Es la libreria que se encarga de guardar el estado de la aplicación (los datos), actua como un tipo de session en el front, permitiendo el acceso y la modificación de los datos entre distintos componentes.</li>
+							<li><span class="important">Nuxt, Weex y Quasar</span>: Se encargan del render de las páginas en servidor y la exportación de las aplicaciones a escritorio y movil.</li>
+						</ul>
+					</section>
+					<section>
+						<h4>3.1 - VUE CLI Consola</h4>
+
+						<p>Para crear un proyecto nuevo solo debemos escribir el siguiente comando y seguir las instrucciones que se muestran por consola:</p>
+						<pre><code class="hljs" data-line-numbers="1">vue create &lt;nombre-proyecto&gt;</code></pre>
+
+						
+					</section>
+					<section>
+
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<style>
+			p,pre,code,.reveal table th {
+				font-size: 22px;
+			}
+			.reveal ul,ol {
+				margin-bottom: 15px;
+				display: block;
+			}
+			ul,ol > li {
+				font-size: 20px;
+			}
+			a,h6 {
+				font-size: 25px;
+			}
+			span.important {
+				font-size: 25px;
+				font-weight: bolder;
+				color: red;
+			}
+
+			.text-left {
+				text-align: left;
+			}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>CLASE 2 - COMPONENTES</h1>
+				</section>
+		  
+				<!-- 1 -->
+				<section>
+					<section>
+						<h3>1 - ATOMIC DESIGN</h3>
+						<p class="text-left">Es una metodología para crear sistemas de diseño, estos a su vez de componen de 5 niveles.</p>
+						IMAGEN
+						<ol>
+							<li>
+							elementos UI que por sí solos tienen alguna funcionalidad: botones, cards, avatares, inputs de formulario… pero también las tipografías, 
+							paleta de colores, espaciados, párrafos… Y, cada uno de ellos, tiene sus propias variaciones que representan estados: seleccionados, con foco, 
+							deshabilitados, etc.
+							</li>
+							<li>
+							Del mismo modo, una molécula en Atomic Design es la unión de diferentes átomos para formar un elemento UI más complejo.
+							Por ejemplo, un campo de formulario con un botón de enviar y un label. O un rectángulo con un avatar, nombre y ubicación del usuario 
+							(es decir, avatar con texto en un área determinada). O un icono junto con un texto que ocupa una área determinada.
+							</li>
+							<li>
+								No debemos perder de vista que estamos hablando de elementos de UI formados por moléculas (que a su vez son átomos) y que, por encima de todo, pueden repetirse.
+								En este sentido, podríamos considerar un organismo una unión de moléculas. Por ejemplo, cuando juntamos los rectángulos con el avatar y los nombres,
+								cuando unimos los iconos y texto para crear una navegación de una aplicación, etc.
+							</li>
+							<li>
+								En esencia, lo que consideraríamos “plantillas” dentro del Atomic Design no dejarían de ser los wireframes: una unión de distintos organismos
+								que forman una página o una aplicación.
+								Se trata de un entregable de alta fidelidad, pero que no termina de ser el diseño final. Para que nos entendamos, 
+								se trata del “esqueleto” de la aplicación o página web.
+							</li>
+							<li>
+								Este es el último nivel del Atomic Design. Son en realidad el diseño final que ya contiene las imágenes y otros detalles que hacen que ese archivo 
+								ya esté listo para el desarrollo o, en su defecto, test con usuarios o el equipo.
+							</li>
+						</ol>
+			
+						https://blog.prototypr.io/atomic-design-diseño-atómico-113411bc7816
+						https://www.uifrommars.com/atomic-design-ventajas/ -- ESTE ESTÁ
+						http://atomicdesign.bradfrost.com/chapter-2/
+			
+						http://demo.patternlab.io/
+					</section>
+					<section>
+						Para qué sirve el Atomic Design y ventajas
+						La metodología del Atomic Design es muy útil porque nos obliga a coger cada diseño y diseccionarlo para poder separar cada átomo.
+						
+						Esto nos ayudará a plantear los elementos de UI básicos con los que los desarrolladores tendrán que trabajar. Con esta base, después podrán ir creando fácilmente las moléculas, organismos y, finalmente, el diseño final.
+						
+						El Atomic Design obliga a plantear bien de inicio el “sistema de diseño”, con las tipografías, jerarquías, paleta de colores, etc. que se necesitarán en un momento dado.
+						
+						Ayuda a planificar y, lo que es todavía mejor, permite crear un sistema que en un futuro podrá asumir fácilmente el diseño de nuevas funcionalidades, ya que probablemente ya estarán los átomos creados y sólo habrá que “combinarlos” de otro modo para crear moléculas y organismos distintos.
+						
+						Las ventajas del Atomic Design son obvias:
+						
+						Facilita la creación de la guía de estilo
+						Permite hacer más rápido los prototipos, ya que los elementos ya existirán
+						Hace más rápido el proceso de actualizar el diseño del producto y/o añadir nuevas funcionalidades, ya que los cambios no harán que se deba programar todo desde cero.
+						Menos componentes hará el diseño y el código más consistentes y eficientes.
+						Permite reutilizar átomos para crear cualquier diseño que se requiera.
+					</section>
+			
+					<section>
+			
+					</section>
+			
+					<section>
+			
+					</section>
+			
+					<section>
+			
+					</section>
+				</section>
+		  
+				<!-- 2 -->
+				<section>
+					<section>
+							<h3>2 - ¿QUÉ SON LOS COMPONENTES?</h3>
+			
+							<p class="text-left">Los componentes son objetos de software diseñados para cumplir un proposito concreto, basicamente en web,
+						consiste en crearte tus propias etiquetas html, que contienen todo el diseño y la funcionalidad necesarios para funcionar.</p>
+			
+							<p class="text-left">En la vista tienen el siguiente aspecto:</p>
+							<pre><code class="hljs" data-trim data-line-numbers="2">
+						&lt;div id="app"&gt;
+								&lt;lista-ordenada&gt;&lt;/lista-ordenada&gt;
+						&lt;/div&gt;
+							</code></pre>
+			
+							<p class="text-left">Y el códgo sería el siguiente:</p>
+							<pre><code class="hljs" data-trim data-line-numbers="1,4,7,8,9">
+						Vue.component('lista-ordenada', {
+							data () {
+							return {
+								lista: ['Alvaro', 'Dario', 'Manuel', 'Angel', 'Cristina']
+							}
+							},
+							template: '&lt;ul&gt;
+							&lt;li v-for="(item, index) in lista" key="index"&gt;{{ item }}&lt;/li&gt;
+							&lt;/ul&gt;'
+						})
+							</code></pre>
+					</section>
+			
+					<section>
+						<h4>2.1 Comunicación de padre a hijo</h4>
+			
+						<p class="text-left">La comunicación de padres a hijos se hace por medio de propiedades:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="2">
+							&lt;div id="app"&gt;
+							&lt;lista-ordenada :lista="items"&gt;&lt;/lista-ordenada&gt;
+							&lt;/div&gt;
+			
+							Vue.component('lista-ordenada', {
+							props {
+								lista: Array
+							},...
+						</code></pre>
+			
+						<p class="text-left">Las propiedades son Opcionales por defecto, se pueden declarar sin definir el tipo: <span class="important">props['lista']</span>, admiten algunos modificadores:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="2">
+							props {
+							cantidad: {
+								type: Number,
+								required: true,
+								default: 100
+							},
+							},
+						</code></pre>
+			
+						<p class="text-left">Es importante saber que las propiedades deberían de ser de solo lectura y que si necesitas alterar una propiedad, deberías crear una variable nueva asignandole el valor:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="2">
+							props: ['cantidad'],
+								data: function () {
+								return {
+									contador: this.cantidad
+								}
+							}
+						</code></pre>
+					</section>
+			
+					<section>
+						<h4>2.2 Comunicación de hijo a padre:</h4>
+			
+						<p class="text-left">Como las propiedades deberian ser de solo lectura, hay una forma de pasar datos de los hijos a los padres, con eventos:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1,3">
+							&lt;ChildComponent @actualizar="actualizaPadre" /&gt;
+			
+							this.$emit('actualizar', this.variableHijo);
+						</code></pre>
+						<p class="text-left">En el anterior ejemplo, el hijo emitiría un evento, actualizar y le pasaría como parametro la variable 'variableHijo',
+							el padre recibe ese evento y puede usar una funcion propia para realizar cualquier acción.
+						</p>
+					</section>
+				</section>
+				
+				<!-- 3 -->
+				<section>
+					<section>
+
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
