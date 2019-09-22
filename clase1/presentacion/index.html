@@ -67,14 +67,14 @@
 						<h6 class="text-left">En la clase de hoy veremos como funciona vue de forma básica y como utilizarlo en un proyecto importandolo como una libreria tal como se trabajaba hace unos años.</h6>
 
 						<h4>¿Qué es Vue?</h4>
-						<p class="text-left">Vue es un framework/libreria de javascript de tercera generación que permite, como sus hermano Angular y React, trabajar el FRONT horientado a componentes, 
+						<p class="text-left">Vue es un framework/libreria de javascript de tercera generación que permite, como sus hermano Angular y React, trabajar el FRONT orientado a componentes, 
 							llamando al Backend solo cuando sea necesario.</p>
 						<p>A destacar:</p>
 						<ul>
-							<li>Es un framework posterior a Angular y React, que se pensó para que tuviese lo mejor de ambos, más facil de aprender y optimizado, sulo pesa 20KB.</li>
+							<li>Es un framework posterior a Angular y React, que se pensó para que tuviese lo mejor de ambos, más facil de aprender y optimizado, solo pesa 20KB.</li>
 							<li>Es reactivo, todo se actualiza sin necesidad de crear listeners.</li>
 							<li>Es progresivo, el core es ligero, pero para aplicaciones medianas y grandes, trae un ecosistema de librerias que ayudan al cambio.</li>
-							<li>Vue no te obliga a adoptar otras técnologías, te lo deja a tu elección (JSX react, Typescript)</li>
+							<li>Vue no te obliga a adoptar otras tecnologías, te lo deja a tu elección (JSX react, Typescript)</li>
 						</ul>
 					</section>
 
@@ -118,7 +118,7 @@
 						<h4>1.1 ¿Como funciona?</h4>
 
 						<pre><code class="hljs" data-line-numbers="1">el: '#app',</code></pre>
-						<p class="text-left">En está linea le decimos a VUE que tiene que vincularse con el elemento con el id 'app' y con esto, 
+						<p class="text-left">En esta linea le decimos a VUE que tiene que vincularse con el elemento con el id 'app' y con esto, 
 							Vue es capaz de controlar cualquier cosa que descienda de esa etiqueta sin necesidad de referenciarla</p>
 
 						<pre><code class="hljs" data-line-numbers="1,3,4,5">&lt;div id="app"&gt;{{ message }}&lt;/div&gt;
@@ -420,7 +420,7 @@ var example1 = new Vue({
 	data: {
 		nombre: ''
 	},
-	watchers: {
+	watch: {
 		nombre (old, new) {
 			'El antiguo valor era' + old + ' el nuevo es ' + new
 			if (nombre != '') this.habilitarSubmit() 
@@ -532,8 +532,7 @@ var example1 = new Vue({
 							<tr>
 								<td>
 									<h4>INSTANCIA DE VUE</h4>
-									<pre><code class="hljs" data-line-numbers="1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19">name: 'RangeSlider',
-data() {}, // variables
+									<pre><code class="hljs" data-line-numbers="1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19">data() {}, // variables
 computed: {}, // variables a partir de otras
 watch: {}, // listeners sobre cambios en variables
 methods: {}, // métodos

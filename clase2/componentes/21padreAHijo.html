@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <lista-ordenada :lista="items"></lista-ordenada>
+    </div>
+
+<script>
+    Vue.component('lista-ordenada', {
+        props: {
+            lista: Array
+        },
+        template: 
+            `<ul>
+                <li v-for="(item, index) in lista" key="index">{{ item }}</li>
+            </ul>`
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data () {
+            return {
+                items: ['Alvaro', 'Dario', 'Manuel', 'Angel', 'Cristina']
+            }
+        }
+    })
+</script>
+</body>
+</html>

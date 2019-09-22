@@ -54,8 +54,15 @@
 						<h1>CLASE 2 - COMPONENTES</h1>
 					</section>
 					<section>
-						<h3>0 - REACTIVIDAD EN PROFUNDIDAD</h3>
-						Crear globalmente o casualmente (componentes)
+						<h3>¿Qué vamos a ver hoy?</h3>
+						<br>
+						<ul>
+							<li>ATOMIC DESIGN</li>
+							<li>COMPONENTES EN VUE</li>
+							<li>PARADA</li>
+							<li>LLAMADAS A API</li>
+							<li>CREANDO DATOS DE VUE GLOBALES</li>
+						</ul>
 					</section>
 				</section>
 		  
@@ -63,71 +70,78 @@
 				<section>
 					<section>
 						<h3>1 - ATOMIC DESIGN</h3>
-						<p class="text-left">Es una metodología para crear sistemas de diseño, estos a su vez de componen de 5 niveles.</p>
-						IMAGEN
-						<ol>
-							<li>
-							elementos UI que por sí solos tienen alguna funcionalidad: botones, cards, avatares, inputs de formulario… pero también las tipografías, 
-							paleta de colores, espaciados, párrafos… Y, cada uno de ellos, tiene sus propias variaciones que representan estados: seleccionados, con foco, 
-							deshabilitados, etc.
-							</li>
-							<li>
-							Del mismo modo, una molécula en Atomic Design es la unión de diferentes átomos para formar un elemento UI más complejo.
-							Por ejemplo, un campo de formulario con un botón de enviar y un label. O un rectángulo con un avatar, nombre y ubicación del usuario 
-							(es decir, avatar con texto en un área determinada). O un icono junto con un texto que ocupa una área determinada.
-							</li>
-							<li>
+						<p class="text-left">
+							Es una metodología para crear sistemas de diseño, es la que utilizan los frameworks de css tipo bootstrap, tiene que ver con la manera de organizar tus componentes
+							, estos a su vez de componen de 5 niveles.
+						</p>
+						
+						<img src="img/atomic.gif" alt="">
+					</section>
+
+					<section>
+						<h4>1.1 Los 5 niveles del diseño atómico:</h4>
+
+						<div class="fragment">
+							<p><span class="important">1 Átomos</span></p>
+							<p>
+								Son elementos UI que por sí solos tienen alguna funcionalidad: botones, cards, avatares, inputs de formulario… pero también las tipografías, 
+								paleta de colores, espaciados, párrafos… Y, cada uno de ellos, tiene sus propias variaciones que representan estados: seleccionados, con foco, 
+								deshabilitados, etc.
+							</p>
+
+							<img src="img/atomos.jpg" alt="">
+						</div>
+					</section>
+
+					<section>
+						<div>
+							<p><span class="important">2 Moléculas:</span></p>
+							<p>
+								Una molécula es una unión de dos o más átomos.
+								Del mismo modo, una molécula en Atomic Design es la unión de diferentes átomos para formar un elemento UI más complejo.
+								Por ejemplo, un campo de formulario con un botón de enviar y un label. O un rectángulo con un avatar, nombre y ubicación del usuario 
+								(es decir, avatar con texto en un área determinada). O un icono junto con un texto que ocupa una área determinada.
+							</p>
+
+							<img src="img/moleculas.jpg" alt="">
+						</div>
+					</section>
+
+					<section>
+						<div>
+							<p><span class="important">3 Organismos</span></p>
+							<p>
 								No debemos perder de vista que estamos hablando de elementos de UI formados por moléculas (que a su vez son átomos) y que, por encima de todo, pueden repetirse.
 								En este sentido, podríamos considerar un organismo una unión de moléculas. Por ejemplo, cuando juntamos los rectángulos con el avatar y los nombres,
 								cuando unimos los iconos y texto para crear una navegación de una aplicación, etc.
-							</li>
-							<li>
-								En esencia, lo que consideraríamos “plantillas” dentro del Atomic Design no dejarían de ser los wireframes: una unión de distintos organismos
-								que forman una página o una aplicación.
-								Se trata de un entregable de alta fidelidad, pero que no termina de ser el diseño final. Para que nos entendamos, 
-								se trata del “esqueleto” de la aplicación o página web.
-							</li>
-							<li>
-								Este es el último nivel del Atomic Design. Son en realidad el diseño final que ya contiene las imágenes y otros detalles que hacen que ese archivo 
+							</p>
+
+							<img src="img/organismos.jpg" alt="">
+						</div>
+					</section>
+
+					<section>
+						<div>
+							<p><span class="important">4 Plantillas</span></p>
+							<p>
+								En esencia, lo que consideraríamos “plantillas” dentro del Atomic Design no dejarían de ser los wireframes: 
+								una unión de distintos organismos que forman una página o una aplicación.
+								Se trata de un entregable de alta fidelidad, pero que no termina de ser el diseño final. Para que nos entendamos, se trata del “esqueleto” de la aplicación o página web.
+							</p>
+						</div>
+
+						<div class="fragment">
+							<p><span class="important">5 Páginas</span></p>
+							<p>
+								Este es el último nivel del Atomic Design. Son en realidad el diseño final que ya contiene las imágenes y otros detalles que hacen que ese archivo
 								ya esté listo para el desarrollo o, en su defecto, test con usuarios o el equipo.
-							</li>
-						</ol>
-			
-						https://blog.prototypr.io/atomic-design-diseño-atómico-113411bc7816
-						https://www.uifrommars.com/atomic-design-ventajas/ -- ESTE ESTÁ
-						http://atomicdesign.bradfrost.com/chapter-2/
-			
-						http://demo.patternlab.io/
-					</section>
-					<section>
-						Para qué sirve el Atomic Design y ventajas
-						La metodología del Atomic Design es muy útil porque nos obliga a coger cada diseño y diseccionarlo para poder separar cada átomo.
-						
-						Esto nos ayudará a plantear los elementos de UI básicos con los que los desarrolladores tendrán que trabajar. Con esta base, después podrán ir creando fácilmente las moléculas, organismos y, finalmente, el diseño final.
-						
-						El Atomic Design obliga a plantear bien de inicio el “sistema de diseño”, con las tipografías, jerarquías, paleta de colores, etc. que se necesitarán en un momento dado.
-						
-						Ayuda a planificar y, lo que es todavía mejor, permite crear un sistema que en un futuro podrá asumir fácilmente el diseño de nuevas funcionalidades, ya que probablemente ya estarán los átomos creados y sólo habrá que “combinarlos” de otro modo para crear moléculas y organismos distintos.
-						
-						Las ventajas del Atomic Design son obvias:
-						
-						Facilita la creación de la guía de estilo
-						Permite hacer más rápido los prototipos, ya que los elementos ya existirán
-						Hace más rápido el proceso de actualizar el diseño del producto y/o añadir nuevas funcionalidades, ya que los cambios no harán que se deba programar todo desde cero.
-						Menos componentes hará el diseño y el código más consistentes y eficientes.
-						Permite reutilizar átomos para crear cualquier diseño que se requiera.
-					</section>
-			
-					<section>
-			
-					</section>
-			
-					<section>
-			
-					</section>
-			
-					<section>
-			
+							</p>
+						</div>
+						<!-- 
+							https://www.uifrommars.com/atomic-design-ventajas/ -- ESTE ESTÁ
+							http://atomicdesign.bradfrost.com/chapter-2/
+							http://demo.patternlab.io/
+						-->
 					</section>
 				</section>
 		  
@@ -137,63 +151,135 @@
 							<h3>2 - ¿QUÉ SON LOS COMPONENTES?</h3>
 			
 							<p class="text-left">Los componentes son objetos de software diseñados para cumplir un proposito concreto, basicamente en web,
-						consiste en crearte tus propias etiquetas html, que contienen todo el diseño y la funcionalidad necesarios para funcionar.</p>
+						consiste en crearte tus propias etiquetas html, que contienen todo el diseño y funcionalidad</p>
 			
 							<p class="text-left">En la vista tienen el siguiente aspecto:</p>
 							<pre><code class="hljs" data-trim data-line-numbers="2">
 						&lt;div id="app"&gt;
-								&lt;lista-ordenada&gt;&lt;/lista-ordenada&gt;
+							&lt;lista-ordenada&gt;&lt;/lista-ordenada&gt;
 						&lt;/div&gt;
 							</code></pre>
 			
-							<p class="text-left">Y el códgo sería el siguiente:</p>
+							<p class="text-left">No es necesario poner el <span class="important">'el:'</span> y el código sería el siguiente:</p>
 							<pre><code class="hljs" data-trim data-line-numbers="1,4,7,8,9">
-						Vue.component('lista-ordenada', {
-							data () {
-							return {
-								lista: ['Alvaro', 'Dario', 'Manuel', 'Angel', 'Cristina']
-							}
-							},
-							template: '&lt;ul&gt;
-							&lt;li v-for="(item, index) in lista" key="index"&gt;{{ item }}&lt;/li&gt;
-							&lt;/ul&gt;'
-						})
-							</code></pre>
+	Vue.component('lista-ordenada', {
+		data () {
+			return {
+				lista: ['Alvaro', 'Dario', 'Manuel', 'Angel', 'Cristina']
+			}
+		},
+		template: '&lt;ul&gt;
+			&lt;li v-for="(item, index) in lista" key="index"&gt;{{ item }}&lt;/li&gt;
+		&lt;/ul&gt;'})</code></pre>
+
+						<p class="text-left">Esta forma de registrar componentes es global.</p>
+					</section>
+
+					<section>
+						<h4>2.0 Componentes .vue</h4>
+						<!--https://medium.com/@jamesweee/using-vue-js-single-file-component-without-module-bundlers-aea58d892ad9-->
+						<p class="text-left">Vue nos brinda una forma de trabajar con los componentes mucho más legible y mejor con los archivos .vue, que se componen de los siguiente:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1,2,3,5,6,7,8,9,10,11,12,14,15,16">
+							&lt;template&gt;
+								// Aquí tendriamos la vista
+							&lt;/template&gt;
+			
+							&lt;script&gt;
+								// Aquí tendriamos la instancia de vue (lógica)
+								export default {
+									data: {
+										...
+									},...
+								}
+							&lt;/script&gt;
+
+							&lt;style scoped&gt;
+								// Aquí tendriamos el css
+							&lt;/style&gt;
+						</code></pre>
+					</section>
+
+					<section>
+						<p class="text-left">Y se importarían en el padre de la siguiente manera:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="3,8,10,11,12,13,14">
+							&lt;template&gt;
+								... 
+								&lt;componente-hijo&gt;&lt;/componente-hijo&gt;
+								...
+							&lt;/template&gt;
+			
+							&lt;script&gt;
+								import componenteHijo from 'ruta/componenteHijo'
+
+								export default {
+									components: {
+										componenteHijo
+									}
+								}
+							&lt;/script&gt;
+						</code></pre>
+
+						<p class="text-left">Normalmente, estos archivos solo pueden usarse en un proyecto de front con NODE, que es el que los interpreta y te genera el código final para el navegador.</p>
+					</section>
+
+					<section>
+						<p class="text-left">Pero gracias a la libreria <span class="important">http-vue-loader</span>, podemos usar componentes .vue en proyectos sin node, con algunas diferencias:</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1,3,4,5,8,11">
+							// El hijo se exporta con module.exports, en lugar de export default
+							&lt;script&gt;
+								module.exports = {
+									data: {}
+								}
+							&lt;/script&gt;
+
+							// El padre lo importa de la siguiente manera:
+							&lt;script&gt;
+								components: {
+									'componenteHijo': window.httpVueLoader('componenteHijo.vue')
+								},
+							&lt;/script&gt;
+						</code></pre>
+
+						<p class="text-left">Para los proyectos de .NET, debemos habilitar la extension .vue para poder utilizarlos, de la siguiente forma:</p>
+
+						CODIGO 2
 					</section>
 			
 					<section>
 						<h4>2.1 Comunicación de padre a hijo</h4>
 			
 						<p class="text-left">La comunicación de padres a hijos se hace por medio de propiedades:</p>
-						<pre><code class="hljs" data-trim data-line-numbers="2">
+						<pre><code class="hljs" data-trim data-line-numbers="2,5,6,7">
 							&lt;div id="app"&gt;
-							&lt;lista-ordenada :lista="items"&gt;&lt;/lista-ordenada&gt;
+								&lt;lista-ordenada :lista="items"&gt;&lt;/lista-ordenada&gt;
 							&lt;/div&gt;
 			
 							Vue.component('lista-ordenada', {
-							props {
-								lista: Array
-							},...
+								props {
+									lista: Array
+								},...
 						</code></pre>
 			
 						<p class="text-left">Las propiedades son Opcionales por defecto, se pueden declarar sin definir el tipo: <span class="important">props['lista']</span>, admiten algunos modificadores:</p>
-						<pre><code class="hljs" data-trim data-line-numbers="2">
+						<pre><code class="hljs" data-trim data-line-numbers="2,3,4,5">
 							props {
-							cantidad: {
-								type: Number,
-								required: true,
-								default: 100
-							},
+								cantidad: {
+									type: Number,
+									required: true,
+									default: 100
+								},
 							},
 						</code></pre>
-			
+					</section>
+
+					<section>
 						<p class="text-left">Es importante saber que las propiedades deberían de ser de solo lectura y que si necesitas alterar una propiedad, deberías crear una variable nueva asignandole el valor:</p>
-						<pre><code class="hljs" data-trim data-line-numbers="2">
+						<pre><code class="hljs" data-trim data-line-numbers="4">
 							props: ['cantidad'],
-								data: function () {
-								return {
-									contador: this.cantidad
-								}
+							data: function () {
+							return {
+								contador: this.cantidad
 							}
 						</code></pre>
 					</section>
@@ -203,21 +289,201 @@
 			
 						<p class="text-left">Como las propiedades deberian ser de solo lectura, hay una forma de pasar datos de los hijos a los padres, con eventos:</p>
 						<pre><code class="hljs" data-trim data-line-numbers="1,3">
-							&lt;ChildComponent @actualizar="actualizaPadre" /&gt;
-			
-							this.$emit('actualizar', this.variableHijo);
+							this.$emit('actualizar', this.variableHijo); // El hijo emite
+
+							&lt;ChildComponent @actualizar="actualizaPadre" /&gt; // El padre escucha el evento
 						</code></pre>
 						<p class="text-left">En el anterior ejemplo, el hijo emitiría un evento, actualizar y le pasaría como parametro la variable 'variableHijo',
 							el padre recibe ese evento y puede usar una funcion propia para realizar cualquier acción.
 						</p>
+					</section>
+
+					<section>
+						<h4>2.3 Slots:</h4>
+
+						<p class="text-left">Nos permiten modificar parte de la presentación y la funcionalidad de un componente hijo desde el componente padre:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1,3,4,5,8,9,10,11">
+							//Componente hijo titulo
+							&lt;div&gt;
+								&lt;slot&gt;
+									&lt;h1&gt;{{ texto }}&lt;/h1&gt;
+								&lt;/slot&gt;
+							&lt;/div&gt;
+
+							//Componente padre 
+							&lt;titulo texto="TITULO DE LA APLICACION"&gt;
+								&lt;h3&gt;SUBTITULO&lt;/h3&gt;
+							&lt;/titulo&gt;
+						</code></pre>
+
+						<p class="text-left">
+							En este caso se mostraría una etiqueta h3 con el texto de subtitulo,
+							hemos podido adaptar el componente hijo a las necesidades del padre sin necesidad de modificar el codigo del hijo.
+						</p>
+					</section>
+
+					<section>
+						<h4>2.3.1 Named slots</h4>
+
+						<p class="text-left">Puedes tener varios slots en un componente, pero para ello debes nombrarlos.</p>
+						<pre><code class="hljs" data-trim data-line-numbers="2,3,4">
+							&lt;div&gt;
+								&lt;header&gt; &lt;slot name="header"&gt;&lt;/slot&gt; &lt;/header&gt;
+								&lt;main&gt; &lt;slot&gt;&lt;/slot&gt; &lt;/main&gt;
+								&lt;footer&gt; &lt;slot name="footer"&gt;&lt;/slot&gt; &lt;/footer&gt;
+							&lt;/div&gt;
+						</code></pre>
+
+						<p class="text-left">Desde el componente padre puedes poner el contenido asignandolo dentro de un template con la directiva v-slot="nombre" o su alias #nombre</p>
+						<pre><code class="hljs" data-trim data-line-numbers="2,3,4,5,6,7,8">
+							&lt;hijo&gt;
+								&lt;template #header&gt;
+								  &lt;h1&gt;Aquí va el header&lt;/h1&gt;
+								&lt;/template&gt;
+								&lt;p&gt;Aquí el default.&lt;/p&gt;
+								&lt;template #footer&gt;
+								  &lt;p&gt;Aquí va el footer&lt;/p&gt;
+								&lt;/template&gt;
+							&lt;/hijo&gt;
+						</code></pre>
+
+						<p class="text-left">Añadir que al slot sin nombre, se le asigna el nombre de default</p>
+					</section>
+
+					<section>
+						<h4>2.3.2 Datos del scope</h4>
+
+						<p class="text-left">Los slots desde el padre pueden acceder a los datos del hijo que nosotros le pasemos de la siguiente forma:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1,3,4,8,9,12">
+							// Padre
+							&lt;titulo&gt;
+								&lt;template v-slot:default="slotProps"&gt;
+									{{ slotProps.persona.nombre }}
+								&lt;/template&gt;
+							&lt;/titulo&gt;
+
+							// Hijo
+							data: { return persona: {...} },
+							template: 
+								`&lt;div&gt;
+									&lt;slot :persona="persona"&gt;
+										&lt;h1&gt;{{ persona.nombre }}&lt;/h1&gt;
+										&lt;h2&gt;{{ persona.apellido }}&lt;/h2&gt;
+									&lt;/slot&gt;
+								&lt;/div&gt;`
+						</code></pre>
+
+						<p class="text-left">Ejemplo vuetify datatable</p>
+					</section>
+
+					<section>
+						<img src="img/comunicacion.png" width="400" alt="">
+
+						<p class="text-left">Como resumen:</p>
+						<ul>
+							<li>Los padres envian datos como props a los hijos</li>
+							<li>Los hijos comunican cambios con eventos a los padres</li>
+							<li>Los padres pueden modificar la apariencia de parte del componente hijo con slots</li>
+						</ul>
+						<p class="text-left">¿Cuando crear un componente hijo?</p>
+						<ul>
+							<li>Cuando un componente se encargue de más de una tarea.</li>
+							<li>Cuando un componente sea demasiado grande, tenga muchas variables en data, computed, etc...</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>2.4 Dump y Smart Components</h4>
+
+						<!-- https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+							https://alligator.io/react/smart-dumb-components/
+							https://www.shade.codes/dumb-components-and-smart-components/ -->
+
+						<p class="text-left">Normalmente los componentes se separan en dos tipos:</p>
+						<p class="text-left">PRESENTACIÓN(DUMP): componentes que muestren datos como cards, tablas, etc...</p>
+						<ul>
+							<li>Se encargan de como se ven las cosas teniendo mucha parte de vista y estilo, pero poca logica.</li>
+							<li>No definen como los datos se reciben o cambian.</li>
+							<li>Obtienen los Datos y callbacks solo por props.</li>
+						</ul>
+						<p class="text-left">CONTENIDO(SMART): componentes que actuen como grid, galerias, listas, menús laterales...</p>
+						<ul>
+							<li>Se encargan de funcionan las cosas, proveen datos y lógica a otros componentes.</li>
+							<li>Contienen el estado y suelen servir como datasources, pasandole las acciones a los componentes Dump.</li>
+						</ul>
+
+						<p class="text-left">Normalmente las llamadas a la API las hacen los componentes principales de cada página.</p>
 					</section>
 				</section>
 				
 				<!-- 3 -->
 				<section>
 					<section>
+						<h3>3 - Llamadas a la API:</h3>
 
+						<p class="text-left">Las llamadas a la API se producen por medio de AJAX y han ido evolucionando a lo largo del tiempo, hoy en día se suelen realizar de dos formas:</p>
+						<ul class="fragment">
+							<li>Por la <span class="important">API FETCH</span>, nativa del navegador y algo más rápida.</li>
+							<li class="fragment">Por la libreria <span class="important">AXIOS</span>, es la que yo utilizo, es menos verbosa, maneja mejor los errores y tiene protección contra ataques XSRF.</li>
+						</ul>
+
+						<p class="fragment">
+							Aún así os dejo 3 enlaces con las diferencias explicadas por si quereis investigar:
+							<a href="https://medium.com/@thejasonfile/fetch-vs-axios-js-for-making-http-requests-2b261cdd3af5">enlace 1</a>,
+							<a href="https://medium.com/@jeffrey.allen.lewis/http-requests-compared-why-axios-is-better-than-node-fetch-more-secure-can-handle-errors-better-39fde869a4a6">enlace 2</a>,
+							<a href="https://stackoverflow.com/questions/40844297/what-is-difference-between-axios-and-fetch">enlace 3</a>
+							, veremos un ejemplo de ambas formas.
+						</p>
 					</section>
+
+					<section>
+						<h4>3.1 Sobre AJAX</h4>
+
+						<p class="text-left">En ambos casos se usan <span class="important">promesas</span> para manejar los datos.</p>
+						<p class="text-left fragment">
+							Las promesas son un tipo de datos que se quedan en un estado de pendiente mientras se realiza la llamada, y 
+							,posteriormente admiten dos funciones callback, then() y catch() para manejar una llamada correcta o un fallo respectivamente.
+						</p>
+						<p class="text-left fragment">Todo esto a nivel de conexión, no de datos.</p>
+
+						<div class="fragment">
+							<p class="text-left">Ejemplo de llamada con fetch:</p>
+							<pre><code class="hljs" data-line-numbers="1,2,3,4">fetch('https://swapi.co/api/people/1/')
+	.then(response => response.json())
+	.then(json => { console.log(json) })
+	.catch(function (error) { console.log(error); });</code></pre>
+						</div>
+
+						<div class="fragment">
+							<p class="text-left">Ejemplo de llamada con axios:</p>
+							<pre><code class="hljs" data-line-numbers="1,2,3">axios.get('https://swapi.co/api/people/1/')
+		.then(function (response) { console.log(response); })
+		.catch(function (error) { console.log(error); });</code></pre>
+						</div>
+	
+						<p class="fragment">
+							<a href="https://codepen.io/Mansoldev/pen/RMKpXg?editors=0012">Ejemplo de fetch en codepen</a> - 
+							<a href="https://codepen.io/Mansoldev/pen/BaBvWpG?editors=0012">Ejemplo de axios en codepen</a>
+						</p>
+					</section>
+
+					<section>
+						<h4>3.2 Sobre AJAX en Vue</h4>
+
+						<p class="text-left">En vue, las llamadas se suelen realizar en el hook created(), guardando los datos devueltos en una variable de data().</p>
+
+						AQUI SMARTSHOP O CALLCENTER
+						<pre class="fragment"><code class="hljs" data-line-numbers="1,2,3">axios.get('https://swapi.co/api/people/1/')
+							.then(function (response) { console.log(response); })
+							.catch(function (error) { console.log(error); });</code></pre>
+					</section>
+				</section>
+
+				<!-- 4 -->
+				<section>
+					<h3>4 - REGISTRO GLOBAL</h3>
+
+					<p class="text-left">Las propiedades de la instancia de vue se pueden definir localmente, como hemos visto en la primera clase o globalmente, como hemos visto los componentes en esta:</p>
 				</section>
 			</div>
 		</div>

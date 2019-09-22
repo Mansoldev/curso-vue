@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <titulo>
+            <template v-slot:default="slotProps">
+                {{ slotProps.persona.nombre }}
+            </template>
+        </titulo>
+    </div>
+
+<script>
+    Vue.component('titulo', {
+        data () {
+            return {
+                persona: {
+                    nombre: 'Darius',
+                    apellido: 'Malarius'
+                }
+            }
+        },
+        template: 
+            `<div>
+                <slot :persona="persona">
+                    <h1>{{ persona.nombre }}</h1>
+                    <h2>{{ persona.apellido }}</h2>
+                </slot>
+            </div>`
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data () {
+            return {}
+        }
+    })
+</script>
+</body>
+</html>
