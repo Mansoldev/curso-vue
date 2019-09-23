@@ -229,8 +229,8 @@ data: {
 						
 						<p class="text-left">Para bindear el valor de atributos html desde una variable se usa <span class="important">v-bind:propiedadHtml</span> o su alias <span class="important">:propiedadHtml</span>, esto hace a la propiedad dependiente de la variable.</p>
 
-						<pre><code class="hljs" data-line-numbers="1,2">&lt;div :class="{active: prop}"&gt;
-&lt;div :style="{color: prop}"&gt;</code></pre>
+						<pre><code class="hljs" data-line-numbers="1,2">&lt;div :class="{'active': variableDataoComputed}"&gt;
+&lt;div :style="{'color': variableDataoComputed}"&gt;</code></pre>
 
 						<p class="text-left">Podemos bindear cualquier otra propiedad como disabled, href, id</p>
 						EJEMPLO

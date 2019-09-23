@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" href="favicon.ico">
+	
+	<title>Vue.js vs Jquery.js</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style>
+		body > div, footer {
+			margin:50px auto;
+			width:50% !important;
+			}
+		footer {border-top:1px solid #e4e4e4;padding-top:20px;}
+	</style>
+</head>
+<body>
+
+	<div id="app" class="container">
+		{{$data}}
+	
+		<h4>¿Has trabajado con Vue.js?</h4>
+		<div class="radio">
+			<label class="radio-inline">
+				<input type="radio" v-model="vue.exp" :value="true"> Sí
+			</label>
+			<label class="radio-inline">
+				<input type="radio" v-model="vue.exp" :value="false"> No
+			</label>
+		</div>
+		
+		<template v-if="vue.exp">
+			<!-- Si la experiencia es sí-->
+			<div class="form-group">
+				<label for="vue_years">¿Cuantos años de experiencia tienes con Vue?</label>
+				<input type="number" v-model="vue.years" class="form-control">
+			</div>
+			
+			<!-- Si quitas v-model de los textarea, aún así no se perderá el texto al cambiar de textarea. 
+			Se puede modificar con key="cualquierNombre" -->
+			<!-- Si tiene un año de experiencia o menos -->
+			<!--2: class="form-group" <div v-if="vue.years < 2" 
+				:class="'form-group' + (descriptionError ? ' has-error' : '')">
+				3:class="['form-group', {'has-error': descriptionError}]"
+			-->
+			<div v-if="vue.years < 2" 
+				:class="descriptionFieldClasses">
+				<label for="vue_years" class="control-label">¿Qué te motivó a aprender Vue?</label>
+				<textarea v-model="vue.description" class="form-control" rows="4"></textarea>
+				<!-- validacion -->
+				<!--
+					<p v-if="vue.description.trim() == ''" class="help-block">El campo es obligatorio</p>
+					<p v-else-if="vue.description.trim().length < 20" class="help-lock">Por favor, escribe una descripccion de más de 20 caracteres</p>
+				-->
+				<p v-if="descriptionError != ''" class="help-block">
+					{{descriptionError}}
+				</p>
+			</div>
+			
+			<!-- Si ha trabajado 2 o más-->
+			<!-- :style="descriptionStyles"
+			2:  :style="[{color: '#44a942'}, descriptionStyles]-->
+			<div v-else-if="vue.years >= 2" class="form-group">
+				<label for="vue_years">Cuentanos tu experiencia con Vue.js</label>
+				<textarea v-model="vue.description" class="form-control" rows="4"></textarea>
+			
+			</div>
+
+		</template>
+		
+	</div>
+			 
+	<footer class="footer">
+		<p>&copy; 2017 everyweb.es</p>
+	</footer>
+			 
+	<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+	<script>
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			vue: {
+				exp: null,
+				years: 0,
+				description: ''
+			}
+		},
+		computed: {
+			descriptionError: function() {
+				var val = this.vue.description.trim();
+
+				if (val == '') {
+					return 'El campo es obligatorio';
+				}
+
+				if (val.length < 10) {
+					return 'Por favor, escribe una descripción más larga';
+				}
+
+				return '';
+			},
+			descriptionFieldClasses: function() {
+				return [
+					'form-group',
+					{'has-error': this.descriptionError}
+				];
+			},
+			descriptionStyles: function() {
+				if (this.descriptionError) {
+					return {color: '#a94442'};
+				}
+
+				return {};
+			}
+		}
+	});
+	</script>
+</body>
+</html>
