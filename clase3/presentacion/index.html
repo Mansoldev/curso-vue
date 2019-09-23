@@ -95,48 +95,55 @@
 						<p class="text-left">Para salir, pulsamos ctrl + C dos veces.</p>
 
 						<br>
-						<p class="text-left">Para ejecutar un archivo:</p>
-						<pre><code class="hljs" data-line-numbers="1">node archivo.js</code></pre>
+						<div class="fragment">
+							<p class="text-left">Para ejecutar un archivo:</p>
+							<pre><code class="hljs" data-line-numbers="1">node archivo.js</code></pre>
+						</div>
 
-						<p class="text-left">Como ejemplo os traigo como crear un par de servidores en javascript: <span class="important">server.js y server2.js</span></p>
+						<p class="text-left fragment">Como ejemplo os traigo como crear un par de servidores en javascript: <span class="important">server.js y server2.js</span></p>
 
 						<br>
-						<p class="text-left">Por último, para actualizarlo se recomienda en windows desinstalarlo e instalarlo de nuevo, pero existen otras alternativas, paquetes npm como n, npx o nvm que te permiten tener distintas versiones de node.</p>
+						<p class="text-left fragment">Por último, para actualizarlo se recomienda en windows desinstalarlo e instalarlo de nuevo, pero existen otras alternativas, paquetes npm como n, npx o nvm que te permiten tener distintas versiones de node.</p>
 					</section>
 
 					<section>
 						<h4>1.2 - NPM, package.json y package-lock.json</h4>
-						<p class="text-left"><span class="important">NPM</span> es el gestor de paquetes de node, para actualizarlo es muy sencillo, Dado que el propio npm es un paquete de npm</p>
-						<pre><code class="hljs" data-line-numbers="1">npm update -g npm</code></pre>
 
-						<br>
-						<p class="text-left">El fichero <span class="important">package.json</span> almacena los datos y configuración más importantes de la App que estamos desarrollando, el nombre, versión, dependencias, etc.
-						Se crea con el comando:</p>
-						<pre><code class="hljs" data-line-numbers="1">npm init</code></pre>
-						<p class="text-left">Nos permite ejecutar cualquier tipo de jecución por consola:</p>
-						<pre><code class="hljs" data-line-numbers="1">npm start</code></pre>
+						<div class="fragment">
+							<p class="text-left"><span class="important">NPM</span> es el gestor de paquetes de node, para actualizarlo es muy sencillo, Dado que el propio npm es un paquete de npm</p>
+							<pre><code class="hljs" data-line-numbers="1">npm update -g npm</code></pre>
+						</div>
 						
 						<br>
-						<p class="text-left">El fichero <span class="important">package-lock.json</span> contiene toda la jerarquía del arbol de dependencias, para evitar discrepancias entre las versiones de los paquetes</p>
+						<div class="fragment">
+							<p class="text-left">El fichero <span class="important">package.json</span> almacena los datos y configuración más importantes de la App que estamos desarrollando, el nombre, versión, dependencias, etc.
+							Se crea con el comando:</p>
+							<pre><code class="hljs" data-line-numbers="1">npm init</code></pre>
+							<p class="text-left">Nos permite ejecutar cualquier tipo de jecución por consola:</p>
+							<pre><code class="hljs" data-line-numbers="1">npm start</code></pre>
+						</div>
+						
+						<br>
+						<p class="text-left fragment">El fichero <span class="important">package-lock.json</span> contiene toda la jerarquía del arbol de dependencias, para evitar discrepancias entre las versiones de los paquetes</p>
 					</section>
 
 					<section>
 						<h4>1.3 - paquetes NPM</h4>
 						<p class="text-left">Antes de empezar con los comandos que tiene npm, me gustaría aclarar cómo funcionan el número de versión que tienen los paquetes.</p>
 						<p class="text-left">Los paquetes de NPM suelen seguir un versionado semántico, es decir: MAJOR.MINOR.PATCH.</p>
-						<p>Dada una versión 5.4.3</p>
-						<ul>
-							<li>El primer número (5) indica una versión grande del paquete, cuando este número cambia se supone que ha habido un cambio grande en el paquete que rompe lo que había con la versión anterior.</li>
-							<li>El segundo número (4) indica una versión menor, en esta versión se resuelven errores anteriores y se añaden cosas pero sin romper la versión anterior, es decir, esta versión será compatible con una versión anterior y por lo tanto se puede actualizar con seguridad.</li>
-							<li>El último número (2) indica arreglo de errores y pequeños fallos pero sin añadir funcionalidad, por lo tanto también es compatible con versiones anteriores.</li>
+						<p class="fragment">Dada una versión 5.4.3</p>
+						<ul class="fragment">
+							<li><span class="important">El primer número (5)</span> indica una versión grande del paquete, cuando este número cambia se supone que ha habido un cambio grande en el paquete que rompe lo que había con la versión anterior.</li>
+							<li><span class="important">El segundo número (4)</span> indica una versión menor, en esta versión se resuelven errores anteriores y se añaden cosas pero sin romper la versión anterior, es decir, esta versión será compatible con una versión anterior y por lo tanto se puede actualizar con seguridad.</li>
+							<li><span class="important">El último número (2)</span> indica arreglo de errores y pequeños fallos pero sin añadir funcionalidad, por lo tanto también es compatible con versiones anteriores.</li>
 						</ul>
 
-						<p class="text-left">Como he explicado antes, npm al usar versionado semántico, puedes indicar que tipo de actualización quieres en cada paquete</p>
-						<ul>
-							<li>~1.0.4, solo va a actualizar el último número, es decir, va a subir solo de versión patch</li>
-							<li>^1.0.4, solo va a actualizar los dos últimos números, es decir, va a subir solo de versión minor, comportamiento por defecto de NPM</li>
-							<li>*1.0.4, va actualizar también de versión mayor.</li>
-							<li>@latest se descarga la ultima versión publicada.</li>
+						<p class="text-left fragment">Como he explicado antes, npm al usar versionado semántico, puedes indicar que tipo de actualización quieres en cada paquete</p>
+						<ul class="fragment">
+							<li><span class="important">~1.0.4</span>, solo va a actualizar el último número, es decir, va a subir solo de versión patch</li>
+							<li><span class="important">^1.0.4</span>, solo va a actualizar los dos últimos números, es decir, va a subir solo de versión minor, comportamiento por defecto de NPM</li>
+							<li><span class="important">*1.0.4</span>, va actualizar también de versión mayor.</li>
+							<li><span class="important">@latest</span> se descarga la ultima versión publicada.</li>
 						</ul>
 					</section>
 
@@ -157,14 +164,14 @@
 							<li><span class="important">npm init [-y]</span>: Inicia un proyecto npm</li>
 							<li><span class="important">npm run &lt;nombre_comando&gt;</span>: Mira comandos que tienes en el package.json y los ejecuta si los encuentra.</li>
 						</ul>
-						<h6>Comandos de busqueda:</h6>
-						<ul>
+						<h6 class="fragment">Comandos de busqueda:</h6>
+						<ul class="fragment">
 							<li><span class="important">npm search [string]</span>: Busca packetes del repositorio que coincidan con la cadena descrita.</li>
 							<li><span class="important">npm docs &lt;nombre-paquete&gt;</span>: Muestra el README.md/documentation/página npmjs.org page del paquete especificado.</li>
 							<li><span class="important">npm info &lt;nombre-paquete&gt;</span>: Muestra información del paquete por consola.</li>
 						</ul>
-						<h6>Comandos de listado:</h6>
-						<ul>
+						<h6 class="fragment">Comandos de listado:</h6>
+						<ul class="fragment">
 							<li><span class="important">npm list|npm ls</span>: Sirva para pintar en pantalla el nombre de todos los paquetes instalados en el proyecto en el que estemos situados, nos da el nombre del paquete, su versión y las dependencias que haya encontrado.</li>
 							<li><span class="important">npm list --depth &lt;numero&gt;</span>: Indicamos que queremos una profundidad de 0, solo va a mostrar los paquetes que hay en el package.json. Una profundidad de 1 mostrará esos paquetes más sus dependencias directas, y así sucesivamente.</li>
 							<li><span class="important">npm list -g</span>: Lista los paquetes instalados globalmente.</li>
@@ -180,11 +187,11 @@
 						<ul>
 							<li><span class="important">npm install|npm i</span>: Instala las dependencias del package.json o instala un nuevo paquete para el proyecto.</li>
 						</ul>
-						<p class="text-left">Lee el archivo del package.json para instalar todas las dependencias que encuentre. Si el paquete ya estaba instalado va a intentar actualizarlo.</p>
-						<p class="text-left">Lo primero que se hace cuando te bajas un repositorio de git con paquetes npm es ejecutar este comando para que descargue todas las librerías, de lo contrario no funcionará.</p>
+						<p class="text-left fragment">Lee el archivo del package.json para instalar todas las dependencias que encuentre. Si el paquete ya estaba instalado va a intentar actualizarlo.</p>
+						<p class="text-left fragment">Lo primero que se hace cuando te bajas un repositorio de git con paquetes npm es ejecutar este comando para que descargue todas las librerías, de lo contrario no funcionará.</p>
 						
-						<p>MODIFICADORES:</p>
-						<ul>
+						<p class="fragment">MODIFICADORES:</p>
+						<ul class="fragment">
 							<li><span class="important">npm install &lt;nombre-paquete@version-name&gt;</span>: Descarga el paquete y lo mete en la carpeta node modules. Para buscar el nombre del paquete repositorio de npmjs: https://www.npmjs.com/</li>
 							<li><span class="important">npm install --global &lt;nombre-paquete&gt;| npm i -g <nombre-paquete></span>: Instalar un paquete globalmente.</li>
 							<li><span class="important">npm install &lt;nombre-paquete&gt; --save-exact</span>: Al guardarse en el package.json se guarda con la versión exacta en ese momento, es decir, nunca se va actualizar. Esto permite mantener siempre la misma versión para que todo funcione igual.</li>
@@ -202,8 +209,8 @@
 						</ul>
 
 						<br>
-						<p class="text-left">Como recomendación te aconsejo que instales este paquete para tener un listado de posibles actualizaciones de los paquetes:</p>
-						<p class="text-left">npm i -g npm-check-updates > permite ejecutar ncu</p>
+						<p class="text-left fragment">Como recomendación te aconsejo que instales este paquete para tener un listado de posibles actualizaciones de los paquetes:</p>
+						<p class="text-left fragment">npm i -g npm-check-updates > permite ejecutar ncu</p>
 					</section>
 				</section>
 
@@ -222,12 +229,17 @@
 
 						<p class="text-left">Para instalarlo, tenemos que bajarnos el instalador de la página oficial e instalarlo como cualquier ejecutable de windows:</p>
 						<a href="https://git-scm.com/">https://git-scm.com/</a>
-						<p class="text-left">Una vez instalado, podemos comprobar que funciona correctamente ejecutando el comando:</p>
-						<pre><code class="hljs" data-line-numbers="1">git --version</code></pre>
 
-						<p class="text-left">Antes de probarlo, lo primero que hay que hacer es configurarlo:</p>
-						<pre><code class="hljs" data-line-numbers="1">git config --global user.email "you@example.com"</code></pre>
-						<pre><code class="hljs" data-line-numbers="1">git config --global user.name "Nombre"</code></pre>
+						<div class="fragment">
+							<p class="text-left">Una vez instalado, podemos comprobar que funciona correctamente ejecutando el comando:</p>
+							<pre><code class="hljs" data-line-numbers="1">git --version</code></pre>
+						</div>
+
+						<div class="fragment">
+							<p class="text-left">Antes de probarlo, lo primero que hay que hacer es configurarlo:</p>
+							<pre><code class="hljs" data-line-numbers="1">git config --global user.email "you@example.com"</code></pre>
+							<pre><code class="hljs" data-line-numbers="1">git config --global user.name "Nombre"</code></pre>
+						</div>
 					</section>
 
 					<section>
@@ -245,13 +257,68 @@
 						<ul>
 							<li><span class="important">git pull</span> : Obtiene los cambios del servidor</li>
 							<li><span class="important">git commit -am "mensaje"</span> : Git prepara los archivos y guarda los cambios EN LOCAL</li>
-							<li><span class="important">git push origin master</span> : Git sube tus cambios comiteados a gitlab</li>
+							<li><span class="important">git push origin master</span> : Git sube tus cambios comiteados al servidor configurado (GitLab)</li>
 						</ul>
 
 						<a href="https://jrebel.com/rebellabs/git-commands-and-best-practices-cheat-sheet/">Chuleta de comandos</a>
 					</section>
-					<section>
 
+					<section>
+						<h4>2.2 - Estados de Git</h4>
+
+						<img src="img/gitEstados.PNG" width="400" alt="">
+						<span>   </span>
+						<img src="img/comandosBasicos.PNG" width="400" alt="">
+						<p class="text-left">Cada archivo en nuestro proyecto de trabajo puede estar en uno de estos dos estados: </p>
+						<ul>
+							<li><span class="important">Bajo seguimiento (tracked)</span>: Los archivos bajo seguimiento son aquellos que ya existían en el último commit
+								<ul class="fragment">
+									<li><span class="important">Unmodified</span>: sin modificar</li>
+									<li><span class="important">Modified</span>: modificados</li>
+									<li><span class="important">Staged</span>: preparados (para comitear)</li>
+								</ul>
+							</li>
+							<li class="fragment"><span class="important">Sin seguimiento (untracked)</span>: Son todos los demás, cualquier archivo que no estuviese en el último commit ni tampoco en el área de preparación (staging area)</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>2.3 - Comandos de uso común</h4>
+
+						<p class="text-left">Crear un repositorio:</p>
+						<ul>
+							<li><span class="important">git init: Inicia un repositorio local vacio en la carpeta actual.</li>
+							<li><span class="important">git clone URL [nombre]: Te bajas el repositorio de esa URL y crea una carpeta con su/[el nombre pasado]</li>
+						</ul>
+
+						<p class="text-left fragment">Observar cambios:</p>
+						<ul class="fragment">
+							<li><span class="important">git status</span>: Muestra los archivos con cambios.</li>
+							<li><span class="important">git diff [archivo]</span>: Muestra los cambios que tienen los archivos/[el archivo especificado].</li>
+							<li><span class="important">git diff --staged</span>: Muestra los cambios de los archivos preparados.</li>
+						</ul>
+
+						<p class="text-left fragment">Guardar cambios local:</p>
+						<ul class="fragment">
+							<li><span class="important">git add [.]/[archivo/carpeta]</span>: prepara para comitear los archivos/el archivo o ruta</li>
+							<li><span class="important">git reset [.]/[archivo/carpeta]</span>: quita para comitear los archivos/el archivo o ruta</li>
+							<li><span class="important">git commit -m "mensaje de commit"</span>: comitea los cambios preparados</li>
+							<li><span class="important">git commit -am "mensaje de commit"</span>: git add + git commit</li>
+							<li><span class="important">git reset --hard</span>: deshace los cambios desde el ultimo commit</li>
+							<li><span class="important">git checkout -- archivo</span>: deshace los cambios de ese archivo</li>
+						</ul>
+
+						<p class="text-left fragment">Guardar cambios servidor:</p>
+						<ul class="fragment">
+							<li><span class="important">git pull</span>: baja los cambios del servidor a local</li>
+							<li><span class="important">git push origin master</span>: sube los cambios comiteados en local al servidor</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>2.4 GITLAB:</h4>
+
+						<p>VER EN REAL</p>
 					</section>
 				</section>
 
@@ -282,10 +349,13 @@
 						<p>Para crear un proyecto nuevo solo debemos escribir el siguiente comando y seguir las instrucciones que se muestran por consola:</p>
 						<pre><code class="hljs" data-line-numbers="1">vue create &lt;nombre-proyecto&gt;</code></pre>
 
-						
+						<p class="text-left">Te preguntará una serie de cosas y con eso construirá el proyecto.</p>
 					</section>
 					<section>
+						<h4>3.2 - VUE UI</h4>
 
+						<p class="text-left">Es una interfaz web que nos permite gestionar nuestros proyectos de vue de forma gráfica.</p>
+						<pre><code class="hljs" data-line-numbers="1">vue ui</code></pre>
 					</section>
 				</section>
 			</div>
