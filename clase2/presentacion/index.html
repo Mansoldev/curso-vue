@@ -59,7 +59,7 @@
 						<ul>
 							<li>ATOMIC DESIGN</li>
 							<li>COMPONENTES EN VUE</li>
-							<li>PARADA</li>
+							<li>===== PARADA =====</li>
 							<li>LLAMADAS A API</li>
 							<li>CREANDO DATOS DE VUE GLOBALES</li>
 						</ul>
@@ -138,7 +138,7 @@
 							</p>
 						</div>
 						<!-- 
-							https://www.uifrommars.com/atomic-design-ventajas/ -- ESTE ESTÁ
+							https://www.uifrommars.com/atomic-design-ventajas/
 							http://atomicdesign.bradfrost.com/chapter-2/
 							http://demo.patternlab.io/
 						-->
@@ -153,15 +153,17 @@
 							<p class="text-left">Los componentes son objetos de software diseñados para cumplir un proposito concreto, basicamente en web,
 						consiste en crearte tus propias etiquetas html, que contienen todo el diseño y funcionalidad</p>
 			
-							<p class="text-left">En la vista tienen el siguiente aspecto:</p>
-							<pre><code class="hljs" data-trim data-line-numbers="2">
-						&lt;div id="app"&gt;
-							&lt;lista-ordenada&gt;&lt;/lista-ordenada&gt;
-						&lt;/div&gt;
-							</code></pre>
-			
-							<p class="text-left">No es necesario poner el <span class="important">'el:'</span> y el código sería el siguiente:</p>
-							<pre><code class="hljs" data-trim data-line-numbers="1,4,7,8,9">
+							<div class="fragment">
+								<p class="text-left">En la vista tienen el siguiente aspecto:</p>
+								<pre><code class="hljs" data-trim data-line-numbers="2">
+								&lt;div id="app"&gt;
+									&lt;lista-ordenada&gt;&lt;/lista-ordenada&gt;
+								&lt;/div&gt;
+								</code></pre>
+							</div>
+							
+							<p class="text-left fragment">No es necesario poner el <span class="important">'el:'</span> y el código sería el siguiente:</p>
+							<pre class="fragment"><code class="hljs" data-trim data-line-numbers="1,4,7,8,9">
 	Vue.component('lista-ordenada', {
 		data () {
 			return {
@@ -172,7 +174,7 @@
 			&lt;li v-for="(item, index) in lista" key="index"&gt;{{ item }}&lt;/li&gt;
 		&lt;/ul&gt;'})</code></pre>
 
-						<p class="text-left">Esta forma de registrar componentes es global.</p>
+						<p class="text-left fragment">Esta forma de registrar componentes es global.</p>
 					</section>
 
 					<section>
@@ -241,9 +243,14 @@
 							&lt;/script&gt;
 						</code></pre>
 
-						<p class="text-left">Para los proyectos de .NET, debemos habilitar la extension .vue para poder utilizarlos, de la siguiente forma:</p>
+						<p class="text-left fragment">Para los proyectos de .NET, debemos habilitar la extension .vue para poder utilizarlos:</p>
 
-						CODIGO 2
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2,3,4">
+							&lt;system.webServer&gt;
+								&lt;staticContent&gt;
+									&lt;mimeMap fileExtension=".vue" mimeType="application/javascript" /&gt;
+								&lt;/staticContent&gt;
+						</code></pre>
 					</section>
 			
 					<section>
@@ -261,8 +268,8 @@
 								},...
 						</code></pre>
 			
-						<p class="text-left">Las propiedades son Opcionales por defecto, se pueden declarar sin definir el tipo: <span class="important">props['lista']</span>, admiten algunos modificadores:</p>
-						<pre><code class="hljs" data-trim data-line-numbers="2,3,4,5">
+						<p class="text-left fragment">Las propiedades son Opcionales por defecto, se pueden declarar sin definir el tipo: <span class="important">props['lista']</span>, admiten algunos modificadores:</p>
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2,3,4,5">
 							props {
 								cantidad: {
 									type: Number,
@@ -293,16 +300,15 @@
 
 							&lt;ChildComponent @actualizar="actualizaPadre" /&gt; // El padre escucha el evento
 						</code></pre>
-						<p class="text-left">En el anterior ejemplo, el hijo emitiría un evento, actualizar y le pasaría como parametro la variable 'variableHijo',
-							el padre recibe ese evento y puede usar una funcion propia para realizar cualquier acción.
-						</p>
+						<p class="text-left fragment">El hijo emitiría un evento, actualizar y le pasaría como parametro la variable 'variableHijo'</p>
+						<p class="text-left fragment">El padre recibe ese evento y puede usar una funcion propia para realizar cualquier acción.</p>
 					</section>
 
 					<section>
 						<h4>2.3 Slots:</h4>
 
-						<p class="text-left">Nos permiten modificar parte de la presentación y la funcionalidad de un componente hijo desde el componente padre:</p>
-						<pre><code class="hljs" data-trim data-line-numbers="1,3,4,5,8,9,10,11">
+						<p class="text-left fragment">Nos permiten modificar parte de la presentación y la funcionalidad de un componente hijo desde el componente padre:</p>
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="1,3,4,5,8,9,10,11">
 							//Componente hijo titulo
 							&lt;div&gt;
 								&lt;slot&gt;
@@ -316,7 +322,7 @@
 							&lt;/titulo&gt;
 						</code></pre>
 
-						<p class="text-left">
+						<p class="text-left fragment">
 							En este caso se mostraría una etiqueta h3 con el texto de subtitulo,
 							hemos podido adaptar el componente hijo a las necesidades del padre sin necesidad de modificar el codigo del hijo.
 						</p>
@@ -334,8 +340,8 @@
 							&lt;/div&gt;
 						</code></pre>
 
-						<p class="text-left">Desde el componente padre puedes poner el contenido asignandolo dentro de un template con la directiva v-slot="nombre" o su alias #nombre</p>
-						<pre><code class="hljs" data-trim data-line-numbers="2,3,4,5,6,7,8">
+						<p class="text-left fragment">Desde el componente padre puedes poner el contenido asignandolo dentro de un template con la directiva v-slot="nombre" o su alias #nombre</p>
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2,3,4,5,6,7,8">
 							&lt;hijo&gt;
 								&lt;template #header&gt;
 								  &lt;h1&gt;Aquí va el header&lt;/h1&gt;
@@ -347,11 +353,11 @@
 							&lt;/hijo&gt;
 						</code></pre>
 
-						<p class="text-left">Añadir que al slot sin nombre, se le asigna el nombre de default</p>
+						<p class="text-left fragment">Añadir que al slot sin nombre, se le asigna el nombre de default</p>
 					</section>
 
 					<section>
-						<h4>2.3.2 Datos del scope</h4>
+						<h4>2.3.2 Datos del slot</h4>
 
 						<p class="text-left">Los slots desde el padre pueden acceder a los datos del hijo que nosotros le pasemos de la siguiente forma:</p>
 						<pre><code class="hljs" data-trim data-line-numbers="1,3,4,8,9,12">
@@ -373,7 +379,7 @@
 								&lt;/div&gt;`
 						</code></pre>
 
-						<p class="text-left">Ejemplo vuetify datatable</p>
+						<p class="text-left fragment"><a href="https://v15.vuetifyjs.com/es-MX/components/data-tables">Ejemplo vuetify datatable</a></p>
 					</section>
 
 					<section>
@@ -385,11 +391,13 @@
 							<li>Los hijos comunican cambios con eventos a los padres</li>
 							<li>Los padres pueden modificar la apariencia de parte del componente hijo con slots</li>
 						</ul>
-						<p class="text-left">¿Cuando crear un componente hijo?</p>
-						<ul>
-							<li>Cuando un componente se encargue de más de una tarea.</li>
-							<li>Cuando un componente sea demasiado grande, tenga muchas variables en data, computed, etc...</li>
-						</ul>
+						<div class="fragment">
+							<p class="text-left">¿Cuando crear un componente hijo?</p>
+							<ul>
+								<li>Cuando un componente se encargue de más de una tarea.</li>
+								<li>Cuando un componente sea demasiado grande, tenga muchas variables en data, computed, etc...</li>
+							</ul>
+						</div>
 					</section>
 
 					<section>
@@ -400,20 +408,28 @@
 							https://www.shade.codes/dumb-components-and-smart-components/ -->
 
 						<p class="text-left">Normalmente los componentes se separan en dos tipos:</p>
-						<p class="text-left">PRESENTACIÓN(DUMP): componentes que muestren datos como cards, tablas, etc...</p>
-						<ul>
-							<li>Se encargan de como se ven las cosas teniendo mucha parte de vista y estilo, pero poca logica.</li>
-							<li>No definen como los datos se reciben o cambian.</li>
-							<li>Obtienen los Datos y callbacks solo por props.</li>
-						</ul>
-						<p class="text-left">CONTENIDO(SMART): componentes que actuen como grid, galerias, listas, menús laterales...</p>
-						<ul>
-							<li>Se encargan de funcionan las cosas, proveen datos y lógica a otros componentes.</li>
-							<li>Contienen el estado y suelen servir como datasources, pasandole las acciones a los componentes Dump.</li>
-						</ul>
-
-						<p class="text-left">Normalmente las llamadas a la API las hacen los componentes principales de cada página.</p>
+						<div class="fragment">
+							<p class="text-left">1 - PRESENTACIÓN(DUMP): componentes que muestren datos como cards, tablas, etc...</p>
+							<ul>
+								<li>Se encargan de como se ven las cosas teniendo mucha parte de vista y estilo, pero poca logica.</li>
+								<li>No definen como los datos se reciben o cambian.</li>
+								<li>Obtienen los Datos y callbacks solo por props.</li>
+							</ul>
+						</div>
+						<div class="fragment">
+							<p class="text-left">2 - CONTENIDO(SMART): componentes que actuen como grid, galerias, listas, menús laterales...</p>
+							<ul>
+								<li>Se encargan de funcionan las cosas, proveen datos y lógica a otros componentes.</li>
+								<li>Contienen el estado y suelen servir como datasources, pasandole las acciones a los componentes Dump.</li>
+							</ul>
+						</div>
+						<p class="text-left fragment">Normalmente las llamadas a la API las hacen los componentes principales de cada página.</p>
 					</section>
+				</section>
+
+				<section>
+					<img src="img/descanso.jpg" alt="">
+					<h1>PARADA</h1>
 				</section>
 				
 				<!-- 3 -->
@@ -472,10 +488,7 @@
 
 						<p class="text-left">En vue, las llamadas se suelen realizar en el hook created(), guardando los datos devueltos en una variable de data().</p>
 
-						AQUI SMARTSHOP O CALLCENTER
-						<pre class="fragment"><code class="hljs" data-line-numbers="1,2,3">axios.get('https://swapi.co/api/people/1/')
-							.then(function (response) { console.log(response); })
-							.catch(function (error) { console.log(error); });</code></pre>
+						<p>Ejemplo llamadas index</p>
 					</section>
 				</section>
 
@@ -483,7 +496,24 @@
 				<section>
 					<h3>4 - REGISTRO GLOBAL</h3>
 
-					<p class="text-left">Las propiedades de la instancia de vue se pueden definir localmente, como hemos visto en la primera clase o globalmente, como hemos visto los componentes en esta:</p>
+					<p class="text-left fragment">Las propiedades de la instancia de vue se pueden definir localmente, como hemos visto en la primera clase o globalmente, como hemos visto los componentes en esta:</p>
+					<pre class="fragment"><code class="hljs" data-trim data-line-numbers="1,3,4,8,9">
+						//Localmente
+						new Vue({
+							filters: {
+								mayuscula (string) { return string.ToUpperCase() }
+							}
+						})
+
+						//Globalmente
+						Vue.filter('mayuscula', string => string.ToUpperCase())
+					</code></pre>
+
+					<!-- https://codepen.io/AndrewThian/pen/QdeOVa?editors=1010 -->
+				</section>
+
+				<section>
+					<img src="img/gracias.webp" alt="">
 				</section>
 			</div>
 		</div>
