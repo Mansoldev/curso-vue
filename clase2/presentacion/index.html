@@ -28,6 +28,15 @@
 				font-weight: bolder;
 				color: red;
 			}
+			.reveal table th, .reveal table td {
+				padding: 0;
+			}
+			.reveal table.separada th, .reveal table.separada td {
+				padding-right: 20px;
+			}
+			.reveal pre code.small {
+				max-width:800px;
+			}
 
 			.text-left {
 				text-align: left;
@@ -510,6 +519,51 @@
 					</code></pre>
 
 					<!-- https://codepen.io/AndrewThian/pen/QdeOVa?editors=1010 -->
+				</section>
+
+				<section>
+					<h3>RESUMEN</h3>
+					<table style="margin-left:-250px;">
+						<tr>
+							<td>
+								<h4>INSTANCIA DE VUE</h4>
+								<pre><code class="hljs" data-line-numbers="1,2,3,4,5,7,8,9,10,11,12,13,14,15,16,17,18,19">props: {} // variables pasadas a componentes hijos
+data() {}, // variables
+computed: {}, // variables a partir de otras
+watch: {}, // listeners sobre cambios en variables
+methods: {}, // métodos
+
+beforeCreate() {},
+created() {},
+beforeMount() {},
+mounted() {},
+beforeUpdate() {},
+updated() {},
+beforeDestroy() {},
+destroyed() {},</code></pre>
+							</td>
+							<td>
+								<h4>DIRECTIVAS</h4>
+								<pre><code class="hljs small" data-line-numbers="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17">v-cloack // renderiza la vista cuando vue está listo
+v-once // solo se interpreta una vez
+v-text="" // bindea el texto o variable pasada en la etiqueta
+v-html="" // = pero bindea html también
+
+v-model="" // une el campo a una variable de vue
+
+v-bind:prop="" o :prop="" // bindea el texto o variable en la propiedad
+
+v-on:evento.modificador="" o @evento.modificador="" // Ejecuta el método pasado
+
+v-show="condicion" // Muestra la etiqueta si se cumple al entrar en la página
+v-if="condicion" // =
+v-else-if="condicion" // =
+v-else="condicion" // =
+v-for="(val, key, index) in obj" // Crea el elemento del v-for como propiedades tenga el objeto o elementos el array
+								</code></pre>
+							</td>
+						</tr>
+					</table>
 				</section>
 
 				<section>
