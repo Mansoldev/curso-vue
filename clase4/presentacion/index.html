@@ -35,7 +35,7 @@
 				padding: 0;
 			}
 			.reveal table.separada th, .reveal table.separada td {
-				padding-right: 20px;
+				padding-right: 50px;
 			}
 			.reveal pre code.small {
 				max-width:800px;
@@ -63,35 +63,384 @@
 						<h1>CLASE 4 - ECOSISTEMA DE VUE</h1>
 					</section>
 					<section>
-						<h3>¿Qué veremos en la clase?</h3>
+						<h4>¿Qué veremos en la clase?</h4>
 
-						<p class="text-left">Repasaremos como crear un proyecto en vue ui</p>
-						<ul>
-							<li>Babel:</li>
-							<li>Eslint:</li>
-							<li>Preprocesadores:</li>
-							<li>Router:</li>
-							<li>Vuex:</li>
-							<li>ModoHistorico:</li>
-						</ul>
-
-						<p class="text-left"></p>
+						<ol>
+							<li>Creación de proyecto con vue ui</li>
+							<li>Estructura de carpetas</li>
+							<li>Ecosistema de Vue</li>
+							<li>Librerias de terceros</li>
+						</ol>
 					</section>
+				</section>
+
+				<section>
 					<section>
+						<h3>1 - REPASO VUE UI</h3>
+
+						<p class="text-left">La interfaz cuenta con 3 partes:</p>
+						<ul>
+							<li><span class="important">Importar</span>: Importas proyectos desde cualquier carpeta del sistema</li>
+							<li><span class="important">Crear</span>: crea proyectos nuevos, te hace una serie de preguntas y los crea.</li>
+							<li><span class="important">Proyectos</span>: Te muestra los proyectos importados en la interfaz o creados con ella.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>1.1 Repaso de crear:</h4>
+
+						<p class="text-left">Primera pantalla:</p>
+						<ul>
+							<li>Le damos nombre al proyecto.</li>
+							<li>Seleccionamos el gestor npm (Qué es el unico con el que contamos).</li>
+							<li>Iniciamos un repositorio de git.</li>
+						</ul>
+					</section>
+
+					<section>
+						<p class="text-left">Pantalla presets:</p>
+						<ul>
+							<li>Recomiendo seleccionarlos manualmente la primera vez</li>
+							<li>Babel (Sí, Pasivo): Permite usar las ultimas funciones de JS guardando la compatibilidad del navegador.</li>
+							<li>TypeScript (NO): Javascript tipado.</li>
+							<li>PWA (NO): Habilita la web para usar service workers y hacer cosas offline.</li>
+							<li>Router (Sí): Permite controlar 'páginas' en el front.</li>
+							<li>VUEX (Sí): Control del Estado en aplicaciones grandes.</li>
+							<li>Preprocesadores (Pasivo): Permite usar preprocesadores CSS.</li>
+							<li>Eslint (Sí, Pasivo): Estandar de código para equipos.</li>
+							<li>Unit Testing (No): Test unitarios para el código (para las clases).</li>
+							<li>E2E Testing (No): Test End-To-End (simulan ser usuarios).</li>
+							<li>Eslint (Sí, Pasivo): Estandar de código para equipos.</li>
+							<li>Archivos de configuración (Sí, Pasivo): Reparte la configuración de las librerias de dev(Pasivas) en lugar de ponerlo todo en el package.json.</li>
+						</ul>
+					</section>
+
+					<section>
+						<p class="text-left">Pantalla de configuración de librerias del proyecto</p>
+						<ul>
+							<li>ModoHistorico (Para ROUTER, Pasivo): Quita # del navegador, necesaria configuración en ISS.</li>
+							<li>CSS Preprocesador(SASS node): Autoprefijos del navegador, variables en CSS, etiquetas dentro de etiquetas...</li>
+							<li>Linter(Solo prevencion): codigo homogeneo para equipos.</li>
+							<li>Lint on save(Sí): comprueba el codigo al guardar (ctrl+S)</li>
+							<li>Lint and fix on commit(NO): comprueba y CORRIGE el codigo al comitear.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>1.2 Repaso del menú de proyecto:</h4>
+
+						<ul>
+							<li>Panel de control: Trae una herramienta para parar procesos.</li>
+							<li>Complementos: Complementos del propio Vue-CLI.</li>
+							<li>Dependencias: librerias de terceros instaladas con NPM.</li>
+							<li>Configuración: configuración de esas librerias.</li>
+							<li>Tareas: Lanzar el proyecto y compilar en producción.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>2 - ESTRUCTURA DE CARPETAS DE PROYECTO VUE</h3>
+
+						<p class="text-left">Jerarquía de primer nivel:</p>
+						<ul>
+							<li>node_modules/: contiene las librerias externas.</li>
+							<li>public/: Contiene el directorio publico, de aquí en principio no se compila nada.</li>
+							<li>src/: Directorio principal de la aplicación. Es donde está todo el código.</li>
+							<li>ARCHIVOS DE CONFIGURACIÓN: de las distintas librerias utilizadas</li>
+							<li>IMPORTANTES: los packages y .gitignore</li>
+							<li>README.md: Contiene información legible del proyecto. Se muestra en todos los servidores de GIT.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>2.1 Directorio src/:</h4>
+
+						<ul>
+							<li>assets/: carpeta para los componentes estáticos; css, fuentes, imágenes, videos...</li>
+							<li>components/: carpeta para los componentes de las páginas</li>
+							<li>views/: carpeta para las 'páginas del proyecto'</li>
+							<li>App.vue: componente de primera entrada de vue, sería el default master. Aquí debería de definirse la estructura principal de la APP.</li>
+							<li>main.js: archivo que instancia la clase de Vue y le añade los plugins y librerias necesarios, sería como el principal de C#.</li>
+							<li>route.js: archivo donde se guardan las rutas de la aplicación del router.</li>
+							<li>store.js: archivo donde se almacenan los datos de vuex.</li>
+						</ul>
+					</section>
+
+					<section>
+
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>3 - ECOSISTEMA DE VUE</h3>
+
+						<img src="img/ecosistema2.PNG" width="400px" alt="">
+
 						<p>A parte del CLI, VUE cuenta con una serie de librerias necesarias para proyectos medianos y grandes:</p>
 						<ul>
-							<li><span class="important">Estructura de carpetas senior</span>: Repaso a la estructura de carpetas y ampliación para proyectos smartlabs.</li>
-							<li><span class="important">Vuetify</span>: Es un framework CSS que nos brinda una gran lista de componentes estéticos y visuales.</li>
-							<li><span class="important">Bus</span>: Es una abstracción plugin para manejar el estado de la aplicación de forma simple.</li>
-							<li><span class="important">Vue-router</span>: Es una libreria que actua de enrutador de la aplicación desde el cliente, creando diferentes "páginas en el cliente".</li>
-							<li><span class="important">vue-auto-routing</span>: Routea automáticamente los componentes de una carpeta concreta como páginas unidas a una url.</li>
+							<li>VUETIFY (Lo veremos): el bootstrap de Vue</li>
+							<li>VUE-ROUTER (Lo veremos)</li>
+							<li>VUEX (Clase 5)</li>
+							<li>NUXT: framework con Server Side Rendering</li>
+							<li>IONIC Y WEEX: Apps hibridas Android/iOS</li>
+							<li>QUASAR: framework todo en uno, como una mezcla de Vuetify + Nuxt + Ionic</li>
+						</ul>
+					</section>
+					
+					<section>
+						<h4>3.1 Vuetify (<a href="https://vuetifyjs.com/es-MX/">Documentación</a>):</h4>
+
+						<p class="text-left">Es un framework css que trae gran cantidad de componentes ya creados.</p>
+						<br>
+						<p class="text-left">Hay 3 formas de añadirlo:</p>
+						<br>
+						<pre><code class="hljs" data-trim data-line-numbers="1">1: vue add vuetify</code></pre>
+						<p class="text-left">2: Añadiendolo con el vue ui, en complementos funciona igual</p>
+						<p class="text-left">3: Añadiendolo con el vue ui, como dependencia:</p>
+
+						FALTA PROCESO PARA METERLO A MANO.
+					</section>
+
+					<section>
+						<h4>3.2 Vue-Router (<a href="https://router.vuejs.org/">Documentación</a>):</h4>
+
+						<p class="text-left">La funcionalidad del router se basa en tres principios:</p>
+
+						<ul>
+							<li>Define las rutas y los archivos que carga en routes.js y eso te da acceso</li>
+							<li>la etiqueta &lt;router-view/&gt; que carga los componentes de las rutas</li>
+							<li>llamar a las páginas (declarativo) por vista con la etiqueta &lt;router-link to="/"&gt;Home&lt;/router-link&gt; (se renderizan a &lt;a&gt;)</li>
+							<li>llamar a las páginas (programatico) por código con</li>
+						</ul>
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+							// literal string path
+							router.push('home')
+							// object
+							router.push({ path: 'home' })
+							// named route
+							router.push({ name: 'user', params: { userId: '123' } })
+							// with query, resulting in /register?plan=private
+							router.push({ path: 'register', query: { plan: 'private' } })
+						</code></pre>
+					</section>
+
+					<section>
+						<h5>3.2.1 Rutas dinámicas:</h5>
+
+						<p class="text-left">Podemos crear rutas a las que pasamos parametros como IDs de la siguiente formula:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">import ProductDetailView from '@/components/views/product-view.vue';
+
+export default new Router({
+    routes: [
+        { 
+            path: 'products/:productId', 
+            name: 'product-detail',
+            component: ProductDetailView 
+        }
+    ]
+});</code></pre>
+
+						<p class="text-left">Podemos obtener los parametros en las páginas con:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">$route.params</code></pre>
+						<p class="text-left">Y guardarlo en el hook created() en una variable de data</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						const router = new VueRouter({ 
+							routes: [{ 
+							  path: '/products/:id', 
+							  component: ProductDetailView, 
+							  props: true 
+							}] 
+						  });
+						</code></pre>
+						<p class="text-left">De esta forma pasamos el parametro como prop al componente, mucho más versatil.</p>
+					</section>
+
+					<section>
+						<h5>3.2.2 Navegando entre rutas:</h5>
+
+						<p class="text-left">Como ya hemos visto con $router.push('ruta') navegamos entre rutas, usa la API del navegador. Hay más opciones:</p>
+						<ul>
+							<li>$router.replace('ruta'): si no queremos que se guarde en el historico de la navegación.</li>
+							<li>$router.go(-1): nos permite saltar por el historico de rutas.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h5>3.2.3 Interceptores de navegación:</h5>
+
+						<p class="text-left">Son una serie de funciones que nos van a permitir realizar diferentes acciones entre la navegación de una ruta a otra.</p>
+						<p class="text-left">Nos pueden venir bien para realizar ciertas redirecciones o para abortar una navegación si algo no se encuentra cómo el sistema espera.</p>
+						<p class="text-left">vue-router cuenta con varias opciones para incluir estos interceptores que van desde el registro del interceptor de manera global hasta el registro del interceptor de manera local.</p>
+					</section>
+
+					<section>
+						<ol>
+							<li>
+								GLOBALES: Dentro de vue-router contamos con la posibilidad de registrar un interceptor que se ejecutará cada vez que se realice un cambio de ruta. Este interceptor se ejecuta de manera global, es decir, para toda las rutas a las que naveguemos, justamente antes de producirse la navegación.
+								<pre><code class="hljs" data-trim data-line-numbers="1">
+									const router = new VueRouter({ ... });
+
+									router.beforeEach((to, from, next) => {
+										// ...
+									});
+								</code></pre>
+								El orden de ejecución es FIFO (El primero en registrarse, es el primero en ejecutarse).
+							</li>
+							<li>
+								LOCALES: En ocasiones, puede que necesitamos influir en la navegación de una sola ruta y no en cada una de ellas.
+								<pre><code class="hljs" data-trim data-line-numbers="1">
+									const router = new VueRouter({ 
+										routes: [ 
+											{ 
+												path: '/login', 
+												component: LoginView, 
+												beforeEnter: (to, from, next) => { 
+													delete localStorage.token;
+													next();  
+												} 
+											} 
+										] 
+									});
+								</code></pre>
+							</li>
+							<li>
+								LOCALES EN COMPONENTES: Podemos localizar todavía más cuándo interceptar la navegación. Podemos incluir interceptores a nivel de un componente. Dependiendo del contexto de navegación en el que se encuentre un componente, podremos hacer unas acciones u otras:
+								<pre><code class="hljs" data-trim data-line-numbers="1">
+									const CartSummary = { 
+										template: `...`, 
+										beforeRouteEnter (to, from, next) { }, 
+										beforeRouteUpdate (to, from, next) { }, 
+										beforeRouteLeave (to, from, next) { } 
+									};
+								</code></pre>
+							</li>
+						</ol>
+					</section>
+
+					<section>
+						<p>Guía del flujo de los Guards:</p>
+
+						<ol>
+							<li>La navegación es activada.</li>
+							<li>Se llama a todos los beforeRouterLeave que se hayan registrado y que no van a ser reutilizados en la siguiente ruta a la que voy.</li>
+							<li>Se llama a todos los interceptores globales beforeEach.</li>
+							<li>Se llama a todos los beforeRouteUpdate de los componentes que van a ser reutilizados en la siguiente ruta a la que voy.</li>
+							<li>Se llama a beforeEnter que hemos configurado en la ruta a la que voy.</li>
+							<li>Se resuelven toda la asincronía de componentes de esa ruta.</li>
+							<li>Se llama a beforeRouteEnter  de los componentes que van a estar activos.</li>
+							<li>Se da la navegación como confirmada.</li>
+							<li>Se llama al interceptor afterEach.</li>
+							<li>Se llama a los callbacks pasados a next in beforeRouteEnter.</li>
+							<li>Y vuelta a empezar cuando se lanza una nueva navegación.</li>
+						</ol>
+					</section>
+
+					<section>
+						<h5>3.2.4 Anidamiento de rutas:</h5>
+
+						<p class="text-left">Puede haber páginas que comportan más partes que solo el layout que hemos definido en principio, por ejemplo, un proceso de pago, para ello podemos definir subrutas:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						const router = new VueRouter({ 
+							routes: [ 
+								{ 
+									path: '/transfer', 
+									component: TransferView, 
+									children: [ 
+										{ path: 'config', component: ConfigView }, 
+										{ path: 'detail', component: DetailView },
+										{ path: 'confirm', component: ConfirmView }
+									] 
+								} 
+							] 
+						});
+						</code></pre>
+						<p class="text-left">Ahora podriamos poner el componente &lt;router-view/&gt; en transfer.vue y el router se encargaría de saber que renderizar.</p>
+					</section>
+
+					<section>
+						<h5>3.2.5 Incluir meta-información en una ruta:</h5>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						const router = new VueRouter({
+							routes: [
+								{
+									path: '/login',
+									component: LoginView,
+									meta: {
+										isPublic: true
+									}
+								}
+							]
+						});
+						</code></pre>
+
+						<p class="text-left">Y luego podemos usarla en interceptores, por ejemplo:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						router.beforeEach((to, from, next) => { 
+							if (!to.matched.some(record => record.meta.isPublic) && !auth.loggedIn()) { 
+								next({ 
+								   path: '/login', query: { redirect: to.fullPath } 
+								});
+							} else {
+								next();
+							}
+						});
+						</code></pre>
+					</section>
+
+					<section>
+						<h5>3.2.6 Sistema de rutas en modo historico HTML5:</h5>
+
+						https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations
+						https://elabismodenull.wordpress.com/2017/05/24/vuejs-conceptos-avanzados-de-vue-router/
+					</section>
+
+					<section>
+						<h5>3.2.7 Cambiar el comportamiento del scroll</h5>
+						<p>Esto solo funciona con el modo historico</p>
+
+						<p class="text-left">Situar el scroll siempre arriba de la página</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						const router = new VueRouter({ 
+							routes: [...], 
+							scrollBehavior (to, from, savedPosition) {
+								return { x: 0, y: 0 }
+							}
+						});
+						</code></pre>
+
+						<p class="text-left">En un lugar concreto</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1">
+						const router = new VueRouter({ 
+							routes: [...], 
+							scrollBehavior (to, from, savedPosition) { 
+								if (to.hash) { 
+									return { 
+										selector: to.hash 
+									} 
+								} 
+							}
+						});
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>4 - LIBRERIAS DE TERCEROS:</h3>
+
+						<ul>
+							<li><span class="important">vue-auto-routing</span>: Rutea automáticamente los componentes de una carpeta concreta como páginas unidas a una url.</li>
 							<li><span class="important">vue-json-excel</span>: libreria que exporta json a excel</li>
 						</ul>
 					</section>
 				</section>
-				<section>
-					
-				</section>
+
+				
 			</div>
 		</div>
 
