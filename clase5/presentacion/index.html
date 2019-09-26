@@ -78,9 +78,62 @@
 				<section>
 					<section>
 						<h3>0 - ESTADO</h3>
+
+						<p class="text-left">El estado es una abstracción referida a los datos de la aplicación en un momento concreto y parte del modelo.</p>
+
+						<p class="text-left">Si el modelo fuese: contador, entero</p>
+						<p class="text-left">El estado sería 1,2,3, los valores que tiene el modelo en un momento concreto</p>
 						
-						El problema de comunicarte hermanos, primos, abuelos....
-						https://www.youtube.com/watch?v=gJUA_XNdh0I
+						<p class="text-left">¿Qué es el estado?</p>
+						<ul>
+							<li>Suena complicado, es algo abstracto</li>
+							<li>Se manipula de forma intuitiva programando</li>
+							<li>Es fácil despreocuparse por él</li>
+							<li>Los problemas suelen surgir cuando ya es "demasiado" tarde</li>
+						</ul>
+						
+						<!--https://www.youtube.com/watch?v=gJUA_XNdh0I-->
+					</section>
+
+					<section>
+						<h4>0.1 Problema de aplicaciones SPA grandes</h4>
+
+						<p class="text-left">
+							La componentización de la web viene a raiz de que los modelos, controladores y vistas se estaban volviendo gigantes y bastante inmanegables.
+							Por ellos, cada componente ahora cuenta con su propio MVC, que está muy bien.
+						</p>
+
+						<p class="text-left">
+							El problema es que es dificil compartir estados entre los componentes, si es de un padre a un hijo o de un hijo a un padre es facil.
+							En la segunda clase vimos que el padre pasa props al hijo y el hijo emite eventos al padre.
+						</p>
+
+						<p class="text-left">
+							Una vez va creciendo el proyecto podemos tener una jerarquía de muchos más niveles y es muy complicado comunicar cambios que avarquen 2 o más de estos.
+							A parte estamos obligados a que el componente intermedio tenga que comunicarse con los componentes jerarquicos superior e inferior si quieren hablarse entre ellos.
+						</p>
+
+						<p class="text-left">Tenemos más problemas:</p>
+						<ul>
+							<li>El estado se encuentra distribuido.</li>
+							<li>Nuestro arbol de estados no tiene porque ser igual al DOM.</li>
+							<li>Es complicado tenerlo sincronizado.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>0.2 Soluciones propuestas (state management):</h4>
+
+						<p class="text-left"></p>
+
+						<p class="text-left">Para atajar a este problema se crearon dos soluciones:</p>
+
+						<ul>
+							<li>Crear un bus de eventos: un componentes invisible con el que el resto de componentes pueden comunicarse independientemente de su nivel en la jerarquía.</li>
+							<li>VUEX: Se centraliza el estado, se distribuye a los componentes.</li>
+						</ul>
+
+						<p class="text-left">Si se usa un bus de eventos en muchos componentes es facil perder el hilo del estado (datos)</p>
 					</section>
 				</section>
 
@@ -94,6 +147,89 @@
 				<section>
 					<section>
 						<h3>2 - VUEX</h3>
+
+						<p class="text-left">Es una libreria basada en flux que permite manejar el estado con conceptos simples.</p>
+
+						<ul>
+							<li>Centraliza el estado</li>
+							<li>Es de solo lectura y da acceso a todos los componentes a través de sus getters.</li>
+							<li>Se puede cambiar mediante mutaciones que normalmente son llamadas desde acciones.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>ESTADO:</h4>
+					</section>
+
+					<section>
+						<h4>MUTACIONES:</h4>
+
+						Son funciones puras y sincronas (de forma inmediata, sin side effect para que la reactividad fluya).
+
+						Pueden comitearlo los componentes directamente, pero no es lo suyo.
+
+						Reciben datos y modifican el estado.
+
+						Manejan la lógica de los datos.
+					</section>
+
+					<section>
+						<h4>ACCIONES:</h4>
+
+						Las acciones pueden ser asincronas.
+
+						Las acciones se pueden componer.
+
+						Pueden llamar a API y commitean mutaciones.
+
+						Manejan la lógica de negocio.
+					</section>
+
+					<section>
+						<h4>GETTERS (estados derivados):</h4>
+
+						Edad: puedes guardarlo por fecha de nacimiento o entero.
+
+						Son estados derivados, como computed properties.
+					</section>
+
+					<section>
+						RESUMEN:
+
+						Los componentes ya serían solo VC y se encargan de su vista.
+
+						Los componentes dispathan acciones.
+
+						Las acciones comitean mutaciones.
+
+						Las mutaciones mutan el estado.
+
+						El estado rederia los componentes y mediante getters podemos adaptar el estado.
+					</section>
+
+					<section>
+						<h4>VENTAJAS EXTRA:</h4>
+
+						<ul>
+							<li>Te hace pensar sobre el estado.</li>
+							<li>Te añade dos capas de abstracción (negocio y datos).</li>
+							<li>Evita hacer de puente entre dos componentes.</li>
+							<li>De repente tienes una caché. El estado de los componentes desaparece.</li>
+							<li>Las store son modulables de forma fractal. Se pueden separar.</li>
+							<li>Permite Hot Module Replacement con webpack.</li>
+							<li>Permite Time-traveling con las dev tools.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>BUENAS PRACTICAS:</h4>
+
+						<ul>
+							<li>El estado debe modelarse pensando solo en los datos, evitando la redundancia, los getters pueden servirlo de forma más cómoda.</li>
+							<li>Puede seguir existiendo estado local y comunicaciones padre-hijo, normalmente cosas puramente UI.</li>
+							<li>Los componentes solo deberían comitear acciones.</li>
+							<li>Las mutaciones deben centrarse solo en manipular los datos. Las acciones llevan la lógica de negocio.</li>
+						</ul>
 					</section>
 				</section>
 			</div>
