@@ -275,25 +275,40 @@
 					</section>
 
 					<section>
-						<h4>2.1 ESTADO:</h4>
+						<h4>2.1 ESTADO (<a href="https://vuex.vuejs.org/guide/state.html">Documentación</a>):</h4>
 
-						<img src="img/estadoT1.PNG" alt="">
+						<img src="img/estadoT1.PNG" width="400" alt="">
 
-						<p class="text-left">Como podemos ver son los datos en si mismos.</p>
+						<p class="text-left">Como podemos ver son los datos en si mismos. Los componentes acceden a los datos de dos formas:</p>
+
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="4,5,10,11">
+						const Counter = {
+							template: `<div>{{ count }}</div>`,
+							computed: {
+								count () {
+									return this.$store.state.count // DIRECTAMENTE EN UNA COMPUTED
+								}
+							}
+						}
+
+						computed: mapState([ //HELPER MAPSTATE
+							'count' // mapea store.state.count a this.count
+						])
+						</code></pre>
 					</section>
 
 					<section>
-						<h4>2.2 MUTACIONES:</h4>
+						<h4>2.2 MUTACIONES (<a href="https://vuex.vuejs.org/guide/mutations.html">Documentación</a>):</h4>
 
 						<ul>
 							<li class="fragment">Son funciones casi puras (sin efectos colaterales).</li>
 							<li class="fragment">Son sincronas, para que se produzcan de forma inmediata y la reactividad fluya.</li>
-							<li class="fragment">Pueden ser comiteadas directamente por los componentes, pero no se debería</li>
+							<li class="fragment">Pueden ser comiteadas directamente por los componentes, pero no se debería.</li>
 							<li class="fragment">Su función es recibir datos y modificar el estado.</li>
-							<li class="fragment">Manejar la lógica de los datos</li>
+							<li class="fragment">Manejar la <span class="important">lógica de los datos</span>.</li>
 						</ul>
 
-						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6,10,11">
 						mutations: {
 							addActivity(state, activity) {
 								state.activities.push(activity);
@@ -302,19 +317,22 @@
 								state.activities = state.activities.filter((val) => val.id !== activity.id);
 							},
 						},
+
+						store.commit('increment')
+						store.commit('increment', 10)
 						</code></pre>
 
 						<p class="text-left fragment">Siempre reciben el estado y pueden recibir más parámetros y a partir de ellos mutarlo.</p>
 					</section>
 
 					<section>
-						<h4>2.3 ACCIONES:</h4>
+						<h4>2.3 ACCIONES (<a href="https://vuex.vuejs.org/guide/actions.html">Documentación</a>):</h4>
 
 						<ul>
 							<li class="fragment">Son funciones que pueden ser asincronas.</li>
 							<li class="fragment">Las acciones se pueden componer, se pueden llamar entre ellas.</li>
 							<li class="fragment">Pueden llamar a API y commitean mutaciones.</li>
-							<li class="fragment">Manejan la lógica de negocio.</li>
+							<li class="fragment">Manejan la <span class="important">lógica de negocio</span>.</li>
 						</ul>
 
 						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
@@ -328,11 +346,35 @@
 								commit('addActivity', activity)
 							},
 						}
+
+						// Componente:
+						store.dispatch('increment')
+						store.dispatch('incrementAsync', {
+							amount: 10
+						})
+
+						//HELPER:
+						import { mapActions } from 'vuex'
+
+						export default {
+							// ...
+							methods: {
+								...mapActions([
+									'increment', // map `this.increment()` to `this.$store.dispatch('increment')`
+
+									// `mapActions` also supports payloads:
+									'incrementBy' // map `this.incrementBy(amount)` to `this.$store.dispatch('incrementBy', amount)`
+								]),
+								...mapActions({
+									add: 'increment' // map `this.add()` to `this.$store.dispatch('increment')`
+								})
+							}
+						}
 						</code></pre>
 					</section>
 
 					<section>
-						<h4>2.4 GETTERS:</h4>
+						<h4>2.4 GETTERS (<a href="https://vuex.vuejs.org/guide/getters.html">Documentación</a>):</h4>
 
 						<p class="text-left">Son estados derivados, un simil a las computed properties de los componentes.</p>
 
@@ -352,6 +394,23 @@
 							  }
 							}
 						})
+
+						// Componentes:
+						store.getters.doneTodos
+						// HELPERS:
+						import { mapGetters } from 'vuex'
+
+						export default {
+							// ...
+							computed: {
+								// mix the getters into computed with object spread operator
+								...mapGetters([
+									'doneTodosCount',
+									'anotherGetter',
+									// ...
+								])
+							}
+						}
 						</code></pre>
 
 						<p class="text-left fragment">Reciben el estado y pueden devolverle tal cual, parte de él o modificado.</p>
@@ -511,6 +570,118 @@
 				</section>
 
 				<!-- 4 -->
+				<section>
+					<section>
+						<h3>4 FUNCIONES CHULAS DE JS</h3>
+
+						<p class="text-left">He preparado un array de pruebas:</p>
+						
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						const tareas = [
+							{
+								id: 1,
+								titulo: 'Atacar a tablas',
+								tipo: 'SQL',
+								veces: 2,
+								horas: 10,
+								terminada: true,
+								hijos: ['Pensar la tabla', 'Escribir SQL']
+							},
+							{
+								id: 2,
+								titulo: 'Manejar el staging',
+								tipo: 'DEVOPS',
+								veces: 3,
+								horas: 5,
+								terminada: false,
+								hijos: ['Llamar a Olalla', 'Rezar a Jisus']
+							},
+							{
+								id: 3,
+								titulo: 'Matar a Mou',
+								tipo: 'Personal',
+								veces: 0,
+								horas: 1,
+								terminada: false,
+								hijos: []
+							},
+							{
+								id: 4,
+								titulo: 'Te regala un row',
+								tipo: 'SQL',
+								veces: 3,
+								horas: 20,
+								terminada: true
+							}
+						]
+						</code></pre>
+					</section>
+
+					<section>
+						<h4>4.1 FILTER (<a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/filter">Documentación</a>):</h4>
+						
+						<p class="text-left">Dado un array, te devuelve un array que cumpla con la condicion pasada como función.</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						[1,2,3,4,5,6,7].filter(num => num > 2)
+						[1,2,3,4,5,6,7].filter(num => num % 2 === 0)
+						tareas.filter(tarea => tarea.veces > 1)
+						tareas.filter(tarea => tarea.terminada)
+						tareas.filter(tarea => !tarea.terminada)
+						tareas.filter(tarea => tarea.id == 3)
+						tareas.filter(tarea => tarea.titulo.includes(' a '))
+						tareas.filter(x => Array.isArray(x.hijos))
+						tareas.filter(x => Array.isArray(x.hijos) && x.hijos.length === 0)
+						tareas.filter(x => Array.isArray(x.hijos) && x.hijos.length > 0)
+						</code></pre>
+					</section>
+
+					<section>
+						<h4>4.2 MAP (<a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/map">Documentación</a>):</h4>
+
+						<p class="text-left">Dado un array, le aplica la función pasada a todos los elementos, también sirve para mapear propiedades del array inicial.</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						[1,2,3,4,5,6,7].map(num => num * 10)
+						tareas.map(tarea => tarea.horas * 2)
+						tareas.map(tarea => tarea.horas * 1.21)
+						tareas.map(tareas.map(tarea => tarea.horas * tarea.veces))
+						tareas.map(tarea => tarea.tipo)
+						tareas.map(tarea => tarea.tipo).filter((v, i, a) => a.indexOf(v) === i)
+						tareas.filter(x => x.terminada).map(x => x.hijos)
+						</code></pre>
+					</section>
+
+					<section>
+						<h4>4.3 REDUCE (<a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/reduce">Documentación</a>):</h4>
+						
+						<p class="text-left">Es como un iterador que va acumulando de cada ciclo lo que quieras</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						tareas.reduce((prev, actual) => prev + parseInt(1), 0)
+						['H','o','l','a'].reduce((prev, actual) => prev + actual)
+						tareas.reduce((prev, actual) => prev + parseInt(actual.horas), 0)
+						tareas.reduce((prev, actual) => prev + parseInt(actual.horas) * 1.21, 0)
+    				tareas.reduce((prev, actual) => prev + (parseInt(actual.horas) * parseInt(actual.veces)), 0)
+						</code></pre>
+						<!-- https://code.tutsplus.com/es/tutorials/how-to-use-map-filter-reduce-in-javascript--cms-26209 -->
+					</section>
+
+					<section>
+						<img src="img/funcional.png" alt="">
+					</section>
+
+					<section>
+						<h4>Propiedades de objetos (<a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Object/keys">Documentación</a>):</h4>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						Object.keys(tareas[0]).includes('hijos') > tareas.filter(tarea => Object.keys(tarea).includes('hijos'))
+						Object.values(tareas[0]).includes('hijos') > tareas.filter(tarea => Object.values(tarea).includes('SQL'))
+						</code></pre>
+					</section>
+					
+				</section>
+
 				<section>
 					<img src="img/gracias.webp" alt="">
 				</section>
