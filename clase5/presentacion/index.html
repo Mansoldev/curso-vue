@@ -67,10 +67,9 @@
 							<h4>¿Qué veremos en la clase?</h4>
 
 							<ol>
-								<li>Creación de proyecto con vue ui</li>
-								<li>Estructura de carpetas</li>
-								<li>Ecosistema de Vue</li>
-								<li>Librerias de terceros</li>
+								<li>ESTADO</li>
+								<li>BUS</li>
+								<li>VUEX</li>
 							</ol>
 					</section>
 				</section>
@@ -81,10 +80,12 @@
 
 						<p class="text-left">El estado es una abstracción referida a los datos de la aplicación en un momento concreto y parte del modelo.</p>
 
-						<p class="text-left">Si el modelo fuese: contador, entero</p>
-						<p class="text-left">El estado sería 1,2,3, los valores que tiene el modelo en un momento concreto</p>
+						<ul>
+							<li>Si el modelo fuese: contador, entero</li>
+							<li>El estado sería 1,2,3, los valores que tiene el modelo en un momento concreto</li>
+						</ul>
 						
-						<p class="text-left">¿Qué es el estado?</p>
+						<p class="text-left">Sobre el estado:</p>
 						<ul>
 							<li>Suena complicado, es algo abstracto</li>
 							<li>Se manipula de forma intuitiva programando</li>
@@ -129,7 +130,7 @@
 						<p class="text-left">Para atajar a este problema se crearon dos soluciones:</p>
 
 						<ul>
-							<li>Crear un bus de eventos: un componentes invisible con el que el resto de componentes pueden comunicarse independientemente de su nivel en la jerarquía.</li>
+							<li>BUS de eventos: Un componentes invisible con el que el resto de componentes pueden comunicarse independientemente de su nivel en la jerarquía.</li>
 							<li>VUEX: Se centraliza el estado, se distribuye a los componentes.</li>
 						</ul>
 
@@ -140,89 +141,151 @@
 				<section>
 					<section>
 						<h3>1 - BUS</h3>
+
+						<p class="text-left">Yo en vez de usar un bus con eventos a los qeu los componentes se suscriben, creo un bus de datos a los que acceden y guardan datos los componentes.</p>
 					</section>
-					<section></section>
+
+					<section>
+						<h4>Bus como modulo js externo</h4>
+					</section>
+
+					<section>
+						<h4>Bus como plugin de vue</h4>
+					</section>
 				</section>
 
 				<section>
 					<section>
-						<h3>2 - VUEX</h3>
+						<h3>2 - VUEX (<a href="https://vuex.vuejs.org/">Documentación</a>)</h3>
 
 						<p class="text-left">Es una libreria basada en flux que permite manejar el estado con conceptos simples.</p>
 
+						<img src="img/vuex2.PNG" width="500" alt="">
+
 						<ul>
 							<li>Centraliza el estado</li>
-							<li>Es de solo lectura y da acceso a todos los componentes a través de sus getters.</li>
+							<li>El estado es de solo lectura y da acceso a todos los componentes a sus datos a través de sus getters.</li>
 							<li>Se puede cambiar mediante mutaciones que normalmente son llamadas desde acciones.</li>
 						</ul>
 					</section>
 
 					<section>
-						<h4>ESTADO:</h4>
+						Literalmente son 4 cosas:
+
+						<img src="img/vuexCodigo.PNG" width="600" alt="">
 					</section>
 
 					<section>
-						<h4>MUTACIONES:</h4>
+						<h4>2.1 ESTADO:</h4>
 
-						Son funciones puras y sincronas (de forma inmediata, sin side effect para que la reactividad fluya).
+						<img src="img/estadoT1.PNG" alt="">
 
-						Pueden comitearlo los componentes directamente, pero no es lo suyo.
-
-						Reciben datos y modifican el estado.
-
-						Manejan la lógica de los datos.
+						<p class="text-left">Como podemos ver son los datos en si mismos.</p>
 					</section>
 
 					<section>
-						<h4>ACCIONES:</h4>
+						<h4>2.2 MUTACIONES:</h4>
 
-						Las acciones pueden ser asincronas.
+						<ul>
+							<li>Son funciones casi puras (sin efectos colaterales).</li>
+							<li>Son sincronas, para que se produzcan de forma inmediata y la reactividad fluya.</li>
+							<li>Pueden ser comiteadas directamente por los componentes, pero no se debería</li>
+							<li>Su función es recibir datos y modificar el estado.</li>
+							<li>Manejar la lógica de los datos</li>
+						</ul>
 
-						Las acciones se pueden componer.
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
+						mutations: {
+							addActivity(state, activity) {
+								state.activities.push(activity);
+							},
+							deleteActivity(state, activity) {
+								state.activities = state.activities.filter((val) => val.id !== activity.id);
+							},
+						},
+						</code></pre>
 
-						Pueden llamar a API y commitean mutaciones.
-
-						Manejan la lógica de negocio.
+						<p class="text-left">Siempre reciben el estado y pueden recibir más parámetros y a partir de ellos mutarlo.</p>
 					</section>
 
 					<section>
-						<h4>GETTERS (estados derivados):</h4>
+						<h4>2.3 ACCIONES:</h4>
 
-						Edad: puedes guardarlo por fecha de nacimiento o entero.
+						<ul>
+							<li>Son funciones que pueden ser asincronas.</li>
+							<li>Las acciones se pueden componer, se pueden llamar entre ellas.</li>
+							<li>Pueden llamar a API y commitean mutaciones.</li>
+							<li>Manejan la lógica de negocio.</li>
+						</ul>
 
-						Son estados derivados, como computed properties.
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
+						actions: {
+							incrementAsync ({ commit }) {
+								setTimeout(() => {
+								commit('increment')
+								}, 1000)
+							},
+							addActivity({commit}, {activity}) {
+								commit('addActivity', activity)
+							},
+						}
+						</code></pre>
 					</section>
 
 					<section>
-						RESUMEN:
+						<h4>2.4 GETTERS:</h4>
 
-						Los componentes ya serían solo VC y se encargan de su vista.
+						<p class="text-left">Son estados derivados, un simil a las computed properties de los componentes.</p>
 
-						Los componentes dispathan acciones.
+						<p class="text-left">Ejemplo, Edad: puedes guardarlo por fecha de nacimiento o entero.</p>
 
-						Las acciones comitean mutaciones.
-
-						Las mutaciones mutan el estado.
-
-						El estado rederia los componentes y mediante getters podemos adaptar el estado.
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="3-6,8,9,10">
+						const store = new Vuex.Store({
+							state: {
+							  todos: [
+								{ id: 1, text: '...', done: true },
+								{ id: 2, text: '...', done: false }
+							  ]
+							},
+							getters: {
+							  doneTodos: state => {
+								return state.todos.filter(todo => todo.done)
+							  }
+							}
+						})
+						</code></pre>
 					</section>
 
 					<section>
-						<h4>VENTAJAS EXTRA:</h4>
+						<h4>2.5 RESUMEN:</h4>
+
+						<img src="img/vuex.png" width="450" alt="">
+						
+						<ul>
+							<li>Los componentes ya serían solo VC y se encargan de su vista.</li>
+							<li>Los componentes dispathan acciones.</li>
+							<li>Las acciones pueden llamar a la API y comitean mutaciones.</li>
+							<li>Las mutaciones mutan el estado.</li>
+							<li>El estado rederiza los componentes y mediante getters podemos adaptar el estado.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h4>2.6 VENTAJAS EXTRA DE VUEX:</h4>
 
 						<ul>
 							<li>Te hace pensar sobre el estado.</li>
 							<li>Te añade dos capas de abstracción (negocio y datos).</li>
 							<li>Evita hacer de puente entre dos componentes.</li>
-							<li>De repente tienes una caché. El estado de los componentes desaparece.</li>
+							<li>De repente tienes una "caché".</li>
 							<li>Las store son modulables de forma fractal. Se pueden separar.</li>
-							<li>Permite Hot Module Replacement con webpack.</li>
+							<li>Permite Hot Module Replacement con webpack*.</li>
 							<li>Permite Time-traveling con las dev tools.</li>
 						</ul>
 					</section>
 
 					<section>
-						<h4>BUENAS PRACTICAS:</h4>
+						<h4>2.7 BUENAS PRACTICAS:</h4>
 
 						<ul>
 							<li>El estado debe modelarse pensando solo en los datos, evitando la redundancia, los getters pueden servirlo de forma más cómoda.</li>
@@ -231,6 +294,39 @@
 							<li>Las mutaciones deben centrarse solo en manipular los datos. Las acciones llevan la lógica de negocio.</li>
 						</ul>
 					</section>
+
+					<section>
+						<h4>2.8 MODULOS:</h4>
+
+						https://vuex.vuejs.org/guide/modules.html
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<!--https://vuejsexamples.com/vue-todo-app-using-vuex-to-store-the-data/-->
+						<h3>UN EJEMPLO PRACTICO</h3>
+					</section>
+
+					<section>
+						<img src="img/gracias.webp" alt="">
+					</section>
+				</section>
+
+				<section>
+					FUNCIONAL:
+
+					filter return fechas.filter((v, i, a) => a.indexOf(v) === i) // Quita duplicados
+					map return this.items.map(d => d[val])
+					unidades () { return this.items.reduce((prev, actual) => prev + parseInt(actual.cantidad), 0) },
+					total () { return this.items.reduce((prev, actual) => prev + (actual.pvp * parseInt(actual.cantidad)), 0) }
+					splice - slice - substr - substring
+					Object.assign
+					eliminar duplicados: fechas.filter((v, i, a) => a.indexOf(v) === i)
+					Set [...new Set(this.objetos.map(x => x.categoria))] 
+					let preCodigos = [...new Set(this.items.filter(x => x.TIPO == this.tipo).map(x => x.ITEMS))]
+					this.codigosItems = [].concat(...preCodigos)
+					http://www.etnassoft.com/2016/09/13/el-objeto-set-en-javascript-los-nuevos-arrays-en-es6-teoria-ejemplos-y-rendimiento-comparado/
 				</section>
 			</div>
 		</div>
