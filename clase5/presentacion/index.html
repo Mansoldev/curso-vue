@@ -85,8 +85,8 @@
 							<li>El estado sería 1,2,3, los valores que tiene el modelo en un momento concreto</li>
 						</ul>
 						
-						<p class="text-left">Sobre el estado:</p>
-						<ul>
+						<p class="text-left fragment">Sobre el estado:</p>
+						<ul class="fragment">
 							<li>Suena complicado, es algo abstracto</li>
 							<li>Se manipula de forma intuitiva programando</li>
 							<li>Es fácil despreocuparse por él</li>
@@ -104,18 +104,18 @@
 							Por ellos, cada componente ahora cuenta con su propio MVC, que está muy bien.
 						</p>
 
-						<p class="text-left">
+						<p class="text-left fragment">
 							El problema es que es dificil compartir estados entre los componentes, si es de un padre a un hijo o de un hijo a un padre es facil.
 							En la segunda clase vimos que el padre pasa props al hijo y el hijo emite eventos al padre.
 						</p>
 
-						<p class="text-left">
+						<p class="text-left fragment">
 							Una vez va creciendo el proyecto podemos tener una jerarquía de muchos más niveles y es muy complicado comunicar cambios que avarquen 2 o más de estos.
 							A parte estamos obligados a que el componente intermedio tenga que comunicarse con los componentes jerarquicos superior e inferior si quieren hablarse entre ellos.
 						</p>
 
-						<p class="text-left">Tenemos más problemas:</p>
-						<ul>
+						<p class="text-left fragment">Tenemos más problemas:</p>
+						<ul class="fragment">
 							<li>El estado se encuentra distribuido.</li>
 							<li>Nuestro arbol de estados no tiene porque ser igual al DOM.</li>
 							<li>Es complicado tenerlo sincronizado.</li>
@@ -125,16 +125,14 @@
 					<section>
 						<h4>0.2 Soluciones propuestas (state management):</h4>
 
-						<p class="text-left"></p>
-
 						<p class="text-left">Para atajar a este problema se crearon dos soluciones:</p>
 
 						<ul>
-							<li>BUS de eventos: Un componentes invisible con el que el resto de componentes pueden comunicarse independientemente de su nivel en la jerarquía.</li>
-							<li>VUEX: Se centraliza el estado, se distribuye a los componentes.</li>
+							<li class="fragment">BUS de eventos: Un componentes invisible con el que el resto de componentes pueden comunicarse independientemente de su nivel en la jerarquía.</li>
+							<li class="fragment">VUEX: Se centraliza el estado, se distribuye a los componentes.</li>
 						</ul>
 
-						<p class="text-left">Si se usa un bus de eventos en muchos componentes es facil perder el hilo del estado (datos)</p>
+						<p class="text-left fragment">Si se usa un bus de eventos en muchos componentes es facil perder el hilo del estado (datos), pero es muy recomendable en aplicaciones pequeñas.</p>
 					</section>
 				</section>
 
@@ -142,15 +140,116 @@
 					<section>
 						<h3>1 - BUS</h3>
 
-						<p class="text-left">Yo en vez de usar un bus con eventos a los qeu los componentes se suscriben, creo un bus de datos a los que acceden y guardan datos los componentes.</p>
+						<p class="text-left">BUS DE EVENTOS:</p>
+						<pre><code class="hljs" data-trim data-line-numbers="1,15,21,24">
+						// src/data/bus.js
+						export default {
+							data () {
+								return {
+									location: '',
+									caption: ''
+								}
+							},
+							methods: {
+								sendData () {
+									const payload = {
+										location: this.location,
+										caption: this.caption
+									}
+									EventBus.$emit('DATA_PUBLISHED', payload)
+								}
+							}
+						}
+
+						// Componente x
+						import EventBus from '../eventBus'
+
+						mounted () {
+							EventBus.$on('DATA_PUBLISHED', (payload) => {
+								this.updateData(payload)
+							})
+						}
+						</code></pre>
+
+						<p class="text-left">Yo utilizo un bus de datos en vez de eventos, es lo mismo, pero lo uso distinto</p>
 					</section>
 
 					<section>
-						<h4>Bus como modulo js externo</h4>
+						<h4>1.1 Bus como modulo js externo</h4>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1,2,27,29,30,35">
+						// src/data/bus.js
+						const EventBus = new Vue({
+							data () {
+								return {
+									API,
+									apiFirstData: {},
+									apiCallback: {},
+									Detalle: {},
+									Creacion,
+									Consulta,
+									DetalleCitas,
+									Correo,
+									Citas,
+									Entidades: {
+										tipoVia,
+										fechaEstimada,
+										horaEstimada,
+										centros
+									},
+									ComponentesGlobales: {
+										toast: "",
+										loading: false
+									}
+								}
+							}
+						});
+						export default EventBus;
+
+						// TablaConsulta.vue 
+						import datos from '@/data/bus';
+
+						export default {
+							data: function () {
+								return {
+									datos
+								}
+							},
+						</code></pre>
+
+						<p class="text-left">Defines el bus y lo importas en los componentes en los que lo vas a usar.</p>
 					</section>
 
 					<section>
-						<h4>Bus como plugin de vue</h4>
+						<h4>1.2 Bus como plugin de vue</h4>
+
+						<p class="text-left">Para SmartShop se me ocurrió que era molesto tener que importarlo en todos los componentes y busque como se crea un plugin de vue.</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1,2,11,12,13,17,18,19,20,21">
+						// src/data/bus.js
+						const EventBus = new Vue({
+							data () {
+								return {
+									config,
+									API,
+									Imagenes: {
+										fabricantes
+									},
+						...
+						export default {
+							install (Vue) {
+								Vue.prototype.$bus = EventBus
+							}
+						}
+
+						// pages/inicio/_id.vue
+						created () {
+							const array = this.$bus.config.Categorias.filter(conf => conf.id == this.id)
+							this.objetos = this.$bus.tiposModelos[array[0].array]
+						}
+						</code></pre>
+
+						<p class="text-left">Con esto todos los componentes tienen acceso a $bus con todos los data y methods de este.</p>
 					</section>
 				</section>
 
@@ -187,11 +286,11 @@
 						<h4>2.2 MUTACIONES:</h4>
 
 						<ul>
-							<li>Son funciones casi puras (sin efectos colaterales).</li>
-							<li>Son sincronas, para que se produzcan de forma inmediata y la reactividad fluya.</li>
-							<li>Pueden ser comiteadas directamente por los componentes, pero no se debería</li>
-							<li>Su función es recibir datos y modificar el estado.</li>
-							<li>Manejar la lógica de los datos</li>
+							<li class="fragment">Son funciones casi puras (sin efectos colaterales).</li>
+							<li class="fragment">Son sincronas, para que se produzcan de forma inmediata y la reactividad fluya.</li>
+							<li class="fragment">Pueden ser comiteadas directamente por los componentes, pero no se debería</li>
+							<li class="fragment">Su función es recibir datos y modificar el estado.</li>
+							<li class="fragment">Manejar la lógica de los datos</li>
 						</ul>
 
 						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
@@ -205,17 +304,17 @@
 						},
 						</code></pre>
 
-						<p class="text-left">Siempre reciben el estado y pueden recibir más parámetros y a partir de ellos mutarlo.</p>
+						<p class="text-left fragment">Siempre reciben el estado y pueden recibir más parámetros y a partir de ellos mutarlo.</p>
 					</section>
 
 					<section>
 						<h4>2.3 ACCIONES:</h4>
 
 						<ul>
-							<li>Son funciones que pueden ser asincronas.</li>
-							<li>Las acciones se pueden componer, se pueden llamar entre ellas.</li>
-							<li>Pueden llamar a API y commitean mutaciones.</li>
-							<li>Manejan la lógica de negocio.</li>
+							<li class="fragment">Son funciones que pueden ser asincronas.</li>
+							<li class="fragment">Las acciones se pueden componer, se pueden llamar entre ellas.</li>
+							<li class="fragment">Pueden llamar a API y commitean mutaciones.</li>
+							<li class="fragment">Manejan la lógica de negocio.</li>
 						</ul>
 
 						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="2-6">
@@ -254,6 +353,8 @@
 							}
 						})
 						</code></pre>
+
+						<p class="text-left fragment">Reciben el estado y pueden devolverle tal cual, parte de él o modificado.</p>
 					</section>
 
 					<section>
@@ -262,11 +363,11 @@
 						<img src="img/vuex.png" width="450" alt="">
 						
 						<ul>
-							<li>Los componentes ya serían solo VC y se encargan de su vista.</li>
-							<li>Los componentes dispathan acciones.</li>
-							<li>Las acciones pueden llamar a la API y comitean mutaciones.</li>
-							<li>Las mutaciones mutan el estado.</li>
-							<li>El estado rederiza los componentes y mediante getters podemos adaptar el estado.</li>
+							<li>Los componentes ya serían solo Vista-Controlador</li>
+							<li class="fragment">Los componentes dispathan acciones.</li>
+							<li class="fragment">Las acciones pueden llamar a la API y comitean mutaciones.</li>
+							<li class="fragment">Las mutaciones mutan el estado.</li>
+							<li class="fragment">El estado rederiza los componentes y mediante getters podemos adaptar el estado.</li>
 						</ul>
 					</section>
 
@@ -275,12 +376,12 @@
 
 						<ul>
 							<li>Te hace pensar sobre el estado.</li>
-							<li>Te añade dos capas de abstracción (negocio y datos).</li>
-							<li>Evita hacer de puente entre dos componentes.</li>
-							<li>De repente tienes una "caché".</li>
-							<li>Las store son modulables de forma fractal. Se pueden separar.</li>
-							<li>Permite Hot Module Replacement con webpack*.</li>
-							<li>Permite Time-traveling con las dev tools.</li>
+							<li class="fragment">Te añade dos capas de abstracción (negocio y datos).</li>
+							<li class="fragment">Evita hacer de puente entre dos componentes.</li>
+							<li class="fragment">De repente tienes una "caché".</li>
+							<li class="fragment">Las store son modulables de forma fractal. Se pueden separar.</li>
+							<li class="fragment">Permite Hot Module Replacement con webpack*.</li>
+							<li class="fragment">Permite Time-traveling con las dev tools.</li>
 						</ul>
 					</section>
 
@@ -289,44 +390,129 @@
 
 						<ul>
 							<li>El estado debe modelarse pensando solo en los datos, evitando la redundancia, los getters pueden servirlo de forma más cómoda.</li>
-							<li>Puede seguir existiendo estado local y comunicaciones padre-hijo, normalmente cosas puramente UI.</li>
-							<li>Los componentes solo deberían comitear acciones.</li>
-							<li>Las mutaciones deben centrarse solo en manipular los datos. Las acciones llevan la lógica de negocio.</li>
+							<li class="fragment">Puede seguir existiendo estado local y comunicaciones padre-hijo, normalmente cosas puramente UI.</li>
+							<li class="fragment">Los componentes solo deberían comitear acciones.</li>
+							<li class="fragment">Las mutaciones deben centrarse solo en manipular los datos. Las acciones llevan la lógica de negocio.</li>
 						</ul>
 					</section>
+				</section>
+
+				<!-- 3 -->
+				<!--https://vuejsexamples.com/vue-todo-app-using-vuex-to-store-the-data/-->
+				<section>
+					<section>
+						<h3>3 CONCEPTOS AVANZADOS:</h3>
+
+						<ol>
+							<li>MODULOS</li>
+							<li>REACTIVIDAD EN PROFUNDIDAD</li>
+						</ol>
+					</section>
 
 					<section>
-						<h4>2.8 MODULOS:</h4>
+						<h4>3.1 MODULOS: (<a href="https://vuex.vuejs.org/guide/modules.html">Documentación</a>)</h4>
 
-						https://vuex.vuejs.org/guide/modules.html
+						<p class="text-left">Según crece nuestra aplicación, es mejor separar los store en varios archivos, para ello podemos crear varios modulos o utilizar namespaces:</p>
+
+						<pre class="fragment"><code class="hljs" data-trim data-line-numbers="1-5, 8-11, 14-17, 21,22">
+						const moduleA = {
+							state: { ... },
+							mutations: { ... },
+							actions: { ... },
+							getters: { ... }
+						}
+						
+						const moduleB = {
+							state: { ... },
+							mutations: { ... },
+							actions: { ... }
+						}
+						
+						const store = new Vuex.Store({
+							modules: {
+								a: moduleA,
+								b: moduleB
+							}
+						})
+						
+						store.state.a // -> `moduleA`'s state
+						store.state.b // -> `moduleB`'s state
+						</code></pre>
+					</section>
+
+					<section>
+						<pre><code class="hljs" data-trim data-line-numbers="1,2,3,4,18,19,28,29,30">
+						const store = new Vuex.Store({
+							modules: {
+								account: {
+									namespaced: true,
+						
+									// module assets
+									state: { ... }, // module state is already nested and not affected by namespace option
+									getters: {
+										isAdmin () { ... } // -> getters['account/isAdmin']
+									},
+									actions: {
+										login () { ... } // -> dispatch('account/login')
+									},
+									mutations: {
+										login () { ... } // -> commit('account/login')
+									},
+						
+									// nested modules
+									modules: {
+										// inherits the namespace from parent module
+										myPage: {
+											state: { ... },
+											getters: {
+												profile () { ... } // -> getters['account/profile']
+											}
+										},
+						
+										// further nest the namespace
+										posts: {
+											namespaced: true,
+						
+											state: { ... },
+											getters: {
+												popular () { ... } // -> getters['account/posts/popular']
+											}
+										}
+									}
+								}
+							}
+						})
+						</code></pre>
+					</section>
+
+					<section>
+						<h4>3.2 REACTIVIDAD EN PROFUNDIDAD (<a href="https://vuejs.org/v2/guide/reactivity.html">Documentación</a>):</h4>
+
+						<p class="text-left">vue no detecta cambios al añadir o quitar propiedades a un objeto.</p>
+
+						<pre><code class="hljs" data-trim data-line-numbers="1-13">
+						var vm = new Vue({
+							data: {
+								a: 1
+							}
+						})
+						// `vm.a` es reactivo
+						
+						vm.b = 2 // `vm.b` no es reactivo
+						Vue.set(vm.someObject, 'c', 3) // De esta forma c es reactivo.
+						this.$set(this.someObject, 'c', 3)
+
+						// En vez de `Object.assign(this.someObject, { a: 1, b: 2 })`
+						this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
+						</code></pre>
+
+						<p class="text-left">Para el resto de cambios no debería de haber problemas, sino, siempre teneis la documentación o internet para mirar.</p>
 					</section>
 				</section>
 
+				<!-- 4 -->
 				<section>
-					<section>
-						<!--https://vuejsexamples.com/vue-todo-app-using-vuex-to-store-the-data/-->
-						<h3>UN EJEMPLO PRACTICO</h3>
-					</section>
-
-					<section>
-						<img src="img/gracias.webp" alt="">
-					</section>
-				</section>
-
-				<section>
-					FUNCIONAL:
-
-					filter return fechas.filter((v, i, a) => a.indexOf(v) === i) // Quita duplicados
-					map return this.items.map(d => d[val])
-					unidades () { return this.items.reduce((prev, actual) => prev + parseInt(actual.cantidad), 0) },
-					total () { return this.items.reduce((prev, actual) => prev + (actual.pvp * parseInt(actual.cantidad)), 0) }
-					splice - slice - substr - substring
-					Object.assign
-					eliminar duplicados: fechas.filter((v, i, a) => a.indexOf(v) === i)
-					Set [...new Set(this.objetos.map(x => x.categoria))] 
-					let preCodigos = [...new Set(this.items.filter(x => x.TIPO == this.tipo).map(x => x.ITEMS))]
-					this.codigosItems = [].concat(...preCodigos)
-					http://www.etnassoft.com/2016/09/13/el-objeto-set-en-javascript-los-nuevos-arrays-en-es6-teoria-ejemplos-y-rendimiento-comparado/
+					<img src="img/gracias.webp" alt="">
 				</section>
 			</div>
 		</div>
