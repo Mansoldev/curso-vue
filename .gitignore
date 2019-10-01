@@ -1,0 +1,21 @@
+vue-info/.DS_Store
+vue-info/node_modules
+vue-info//dist
+
+# local env files
+vue-info/.env.local
+vue-info/.env.*.local
+
+# Log files
+vue-info/npm-debug.log*
+vue-info/yarn-debug.log*
+vue-info/yarn-error.log*
+
+# Editor directories and files
+vue-info/.idea
+vue-info/.vscode
+vue-info/*.suo
+vue-info/*.ntvs*
+vue-info/*.njsproj
+vue-info/*.sln
+vue-info/*.sw?
