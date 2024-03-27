@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title" id="exampleModalLabel">MUY BIEN</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    AHORA SOS EXPERTO EN VUEJS
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <section>
+            <h1>Aprendiendo a ser muy <span class="toTitulo">Vue</span>no con <span class="toTitulo">Vuejs</span></h1>
+            <div id="app" class="mb-2">
+                <!--<div class="box">
+                    <div class="score">{{ puntuacion }} %</div>
+                        <div class="bar">
+                        <div class="progresso"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>-->
+                <!--<div class="progress-bar my-2">
+                    <span class="label">.</span>
+                    <div class="bar-holder">
+                        <div class="bar2 text-center">
+                            <span id="counter" class="value bar-label">{{ puntuacion }} %</span>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="progress my-2">
+                    <div class="progress-bar" role="progressbar" :style="'width: ' + puntuacion +'%;'" :aria-valuenow="puntuacion" aria-valuemin="0" aria-valuemax="100">{{ puntuacion }} %</div>
+                </div>
+                <button :disabled="!completado" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Enviar cuestionario</button>
+            </div>
+            
+            <fieldset id="app1">
+                <legend><span class="number">1</span> Información Básica</legend>
+                <div class="row mx-3">
+                    <input v-model="nombre" type="text" class="col-md-4" placeholder="Nombre">
+                    <input v-model="apellido1" type="text" class="col-md-4" placeholder="Apellido 1">
+                    <input v-model="apellido2" type="text" class="col-md-4" placeholder="Apellido 2">
+                </div>
+                <div class="row">
+                    <div class="inline-block col-md-4">Nombre completo (<span>{{nombreCompleto | count}}</span>):</div>
+                    <div class="inline-block col-md-8">{{ nombreCompleto }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="inline-block col-md-4">Nombre mayus:</div>
+                    <div class="inline-block col-md-8">{{nombreCompleto | prefijo | capi}}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="inline-block col-md-4">Nombre al reves:</div>
+                    <div class="inline-block col-md-8" v-text="nombreReves"></div>
+                    <div class="inline-block offset-md-4 col-md-8" v-html="htmlReves"></div>
+                </div>
+            </fieldset>
+            
+            <fieldset id="app2">
+              <legend><span class="number">2</span> Tu Perfil</legend>
+
+              <label>¿Has trabajado con Vue.js?</label>
+              <div class="radio">
+                    <label class="radio-inline">
+                        <input type="radio" v-model="vue.exp" :value="true"> Sí
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" v-model="vue.exp" :value="false"> No
+                    </label>
+                </div>
+                
+                <template v-if="vue.exp">
+                    <!-- Si la experiencia es sí-->
+                    <div class="form-group">
+                        <label for="vue_years">¿Cuantos años de experiencia tienes con Vue?</label>
+                        <input type="number" v-model="vue.years" class="form-control">
+                    </div>
+                    
+                    <div v-if="vue.years < 3" 
+                        :class="descriptionFieldClasses">
+                        <label for="vue_years" class="control-label">¿Qué te motivó a aprender Vue?</label>
+                        <textarea v-model="vue.description" class="form-control" rows="4"></textarea>
+                        <!-- validacion -->
+                        <p v-if="descriptionError != ''" class="help-block">
+                            {{descriptionError}}
+                        </p>
+                    </div>
+                    
+                    <!-- Si ha trabajado 2 o más-->
+                    <div v-else-if="vue.years >= 3" class="form-group">
+                        <label for="vue_years">Cuentanos tu experiencia con Vue.js</label>
+                        <textarea v-model="vue.description" class="form-control" rows="4"></textarea>
+                    </div>
+                </template>
+
+                <label for="job">Conocimientos:</label>
+                <select multiple v-model="intereses" class="col-md-12">
+                    <optgroup label="WEB">
+                        <option v-for="interes in datos.web" :key="interes" :value="interes">{{ interes }}</opion>
+                    </optgroup>
+                    <optgroup label="MOVIL">
+                        <option v-for="interes in datos.movil" :key="interes" :value="interes">{{ interes }}</option>
+                    </optgroup>
+                </select>
+
+                <div v-if="mensajeInteres != ''" class="alert alert-info" role="alert"> {{ mensajeInteres }}  </div>
+                <div v-else class="alert alert-warning" role="alert">  Aún no has seleccionado ningún conocimiento </div>
+            </fieldset>
+        </form>
+    </div>
+<script>
+    var app1 = new Vue({
+        el: '#app1',
+
+        filters: {
+            capi (value) { return value.toUpperCase() },
+            prefijo (value) { return (value === '') ? '' : "sr/sra " + value },
+            count (value) { return value.length }
+        },
+
+        data: {
+            nombre: '',
+            apellido1: '',
+            apellido2: ''
+        },
+
+        computed: {
+            nombreCompleto () { return (this.nombre === '' && this.apellido1 === '' && this.apellido2 === '' ) ? '' : this.nombre + ' ' + this.apellido1 + ' ' + this.apellido2 },
+            nombreReves () { return this.nombreCompleto.split("").reverse().join("") },
+            htmlReves () { return '<b>' + this.nombreReves + '</b>' }
+        }
+    })
+
+    var app2 = new Vue({
+        el: '#app2',
+
+        data: {
+            datos: {
+                web: ['Diseño', 'Maquetacion', 'Frontend', 'Backend'],
+                movil: ['Diseñador_movil', 'Android', 'IOS']
+            },
+            intereses: [],
+            mensajeInteres: '',
+			vue: {
+				exp: null,
+				years: 0,
+				description: ''
+			}
+        },
+        
+		computed: {
+			descriptionError: function() {
+				if (this.vue.description == '') return 'El campo es obligatorio';
+				if (this.vue.description < 10) return 'Por favor, escribe una descripción más larga';
+				return '';
+			},
+			descriptionFieldClasses: function() {
+				return [
+					'form-group',
+					{'has-error': this.descriptionError}
+				];
+			},
+			descriptionStyles: function() {
+				if (this.descriptionError) {
+					return {color: '#a94442'};
+				}
+				return {};
+			}
+        },
+        
+        watch: {
+            intereses (newValue, oldValue) {
+                newValue == '' ? this.mensajeInteres = '' : this.mensajeInteres = 'Has seleccionado el nuevo valor "' + newValue + '" en lugar del antiguo valor "' + oldValue + '"';
+            }
+        }
+    })
+
+    var app = new Vue({
+        el: '#app',
+
+        computed: {
+            puntuacion () { return this.nombre + this.apellido1 + this.apellido2 + this.descripcion + this.interesFront },
+            completado () { return this.puntuacion == 100 },
+
+            nombre () { return app1.nombre != '' ? 20 : 0 },
+            apellido1 () { return app1.apellido1 != '' ? 20 : 0 },
+            apellido2 () { return app1.apellido2 != '' ? 20 : 0 },
+
+            descripcion () { return app2.vue.description.length >= 10 ? 20 : 0 },
+            interesFront () { return app2.intereses.includes('Frontend') ? 20 : 0 }
+        },
+    })
+</script>
+
+<style>
+    *,
+    *:before,
+    *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+    background-color: #B7FDFE;
+    }
+
+    section {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    }
+
+    .inline-block { display: inline-block; }
+
+    h1 { text-align: center; }
+    hr { margin-top: 5px; margin-bottom: 5px; }
+
+    .toTitulo { font-size: 35px; font-weight: bolder; color: #42b983; }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="email"],
+    input[type="number"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="url"],
+    textarea,
+    select {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 16px;
+    margin: 0;
+    padding: 5px;
+    background-color: #e8eeef;
+    color: #8a97a0;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 10px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        margin: 0 4px 8px 0;
+    }
+
+    fieldset {
+        border: none;
+    }
+
+    legend {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 10px;
+    }
+
+    label {
+    display: block;
+    margin-bottom: 8px;
+    }
+
+    .number {
+    background-color: #28a745;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    }
+
+
+/*     .box { 
+  width: 100%;
+  height: 60px;
+  background: #63a3e3;
+  text-align: center;
+}
+
+.score {
+  font-size: 28px;
+  color: #fff;
+} 
+
+.bar { 
+  background: #c4c4dd;
+  position: relative; 
+  height: 10px;
+  width: 80%;
+  margin: 0 auto;
+  text-align: left
+}
+
+.progresso { 
+  position: absolute; 
+  height: 100%;
+  transition: width 1s ease-in; 
+  width: 8%;
+  background-color: rgba(252,252,55,0.8);
+  z-index: 1;
+}
+
+.dot { 
+  position: relative;
+  width: 5%;
+  height: 10px;
+  margin-left: 16%;
+  background-color: rgba(99,163,227,1);
+  float:left;
+  z-index: 2;
+}
+
+.bar2 { 
+   background: #ffffff;
+  position: relative; 
+  height: 20px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: left
+}
+.dot2 { 
+  position: relative;
+  width: 16%;
+  height: 20px;
+  margin-right: 5%;
+  background: transparent;
+  display: inline-block; 
+  z-index: 2;
+}
+
+
+.progress-bar {
+  width: 100%;
+  background: grey;
+  position: relative;
+  border: 1px solid grey;
+  color: grey;
+}
+
+.bar-holder {
+  width: attr(bar-size);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  animation: progression 5s ease-in-out 2s infinite;
+}
+
+.bar2 {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right,#FD5364,#FE7E8B 25%,#FCE96B 50%,#8CCD82 75%,#66BC58);
+}
+
+.bar-label {
+  color: white;
+}
+
+@keyframes progression {
+     from { width: 0 }
+     to   { width: 100% }
+} */
+</style>
+</body>
+</html>
